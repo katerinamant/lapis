@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LandingPage.LandingPageActivity"
+    android:background="@drawable/landing_page_background_cropped">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.096"
+        android:src="@drawable/lapis_logo_white_cropped" />
+
+    <Button
+        android:id="@+id/btn_get_started"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="280dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/get_started"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/sea_blue"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="155dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/login"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/sea_blue"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_get_started"
+        app:layout_constraintVertical_bias="0.236" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,5 @@
+<bitmap
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:src="@drawable/landing_page_background_cropped"
+    android:gravity="center"
+ />
