@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Lapis</string>
 
+    <!-- Misc -->
+    <string name="ok">OK</string>
+
     <!-- Landing Page -->
     <string name="get_started">Get started</string>
     <string name="login">Login</string>
