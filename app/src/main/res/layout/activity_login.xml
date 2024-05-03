@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintVertical_bias="0.096"
+        android:contentDescription="@string/logo_desc" />
 
     <TextView
         android:id="@+id/email_title"
@@ -36,8 +37,9 @@
     <EditText
         android:id="@+id/edit_text_email"
         android:layout_width="255dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
+        android:autofillHints="{@value #AUTOFILL_HINT_EMAIL_ADDRESS}"
         android:background="@drawable/edittext_rounded"
         android:ems="10"
         android:fontFamily="@font/inter_light"
@@ -46,10 +48,11 @@
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textColorHint="@color/hint"
-        android:textSize="13sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_title" />
+        app:layout_constraintTop_toBottomOf="@+id/email_title"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/password_title"
@@ -69,8 +72,9 @@
     <EditText
         android:id="@+id/edit_text_password"
         android:layout_width="255dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="5dp"
+        android:autofillHints="{@value #AUTOFILL_HINT_PASSWORD}"
         android:background="@drawable/edittext_rounded"
         android:ems="10"
         android:hint="@string/password"
@@ -78,10 +82,11 @@
         android:textAlignment="viewStart"
         android:textColor="@color/black"
         android:textColorHint="@color/hint"
-        android:textSize="13sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_title" />
+        app:layout_constraintTop_toBottomOf="@+id/password_title"
+        tools:ignore="TextContrastCheck" />
 
     <Button
         android:id="@+id/btn_enter"
@@ -98,5 +103,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_password"
-        app:layout_constraintVertical_bias="0.100000024" />
+        app:layout_constraintVertical_bias="0.19999999" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package com.example.lapis.LoginPage;
 
-import android.util.Log;
-
 public class LoginPresenter {
     private final LoginView view;
 
