@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.LandingPage.LandingPageActivity;
 import com.example.lapis.R;
 
@@ -66,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     // LoginView implementations
     @Override
     public void successfulLogIn() {
-        Intent intent = new Intent(LoginActivity.this, LandingPageActivity.class); // placeholder
+        Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
         startActivity(intent);
     }
 
