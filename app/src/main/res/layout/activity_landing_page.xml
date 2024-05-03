@@ -8,21 +8,21 @@
     android:background="@drawable/landing_page_background_cropped">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/lapis_logo_white_cropped"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.096"
-        android:src="@drawable/lapis_logo_white_cropped" />
+        app:layout_constraintVertical_bias="0.096" />
 
     <Button
         android:id="@+id/btn_get_started"
         android:layout_width="155dp"
         android:layout_height="58dp"
-        android:layout_marginTop="280dp"
+        android:layout_marginTop="380dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/inter_regular"
         android:text="@string/get_started"
@@ -32,15 +32,15 @@
         android:textSize="18sp"
         app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="155dp"
         android:layout_height="58dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/inter_regular"
         android:text="@string/login"
@@ -54,5 +54,5 @@
         app:layout_constraintHorizontal_bias="0.828"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_get_started"
-        app:layout_constraintVertical_bias="0.236" />
+        app:layout_constraintVertical_bias="0.392" />
 </androidx.constraintlayout.widget.ConstraintLayout>
