@@ -2,6 +2,14 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="sea_blue">#1768AC</color>
+
+    <!-- Palette -->
+    <color name="royal_blue">#03256C</color>
+    <color name="persian_blue">#2541B2</color>
+    <color name="green_blue">#1768AC</color>
+    <color name="aero">#06BEE1</color>
+    <color name="deep_sky_blue">#62BFED</color>
+
+    <!-- Misc -->
     <color name="hint">#A6A6A6</color>
 </resources>
