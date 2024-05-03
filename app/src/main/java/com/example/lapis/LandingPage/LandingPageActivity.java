@@ -1,10 +1,10 @@
 package com.example.lapis.LandingPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lapis.LoginPage.LoginActivity;
 import com.example.lapis.R;
