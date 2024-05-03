@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.lapis.HomePage.HomePageActivity;
-import com.example.lapis.LandingPage.LandingPageActivity;
 import com.example.lapis.R;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {

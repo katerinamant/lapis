@@ -28,7 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.666"
-        app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+        app:srcCompat="@drawable/lapis_logo_blue_cropped"
+        android:contentDescription="@string/blue_logo_desc" />
 
     <ImageView
         android:id="@+id/header_user"
@@ -39,7 +40,8 @@
         app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toEndOf="@+id/header_logo"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_icon" />
+        app:srcCompat="@drawable/user_icon"
+        android:contentDescription="@string/user_icon_desc" />
 
     <TextView
         android:id="@+id/search_title"
@@ -56,17 +58,20 @@
 
     <EditText
         android:id="@+id/edit_text_destination"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/edittext_rounded_with_color"
         android:drawableStart="@drawable/search_icon_settings"
         android:ems="10"
         android:fontFamily="@font/inter_regular"
+        android:hint="@string/search"
         android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
         android:inputType="text"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
+        android:textColorHint="@color/hint"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

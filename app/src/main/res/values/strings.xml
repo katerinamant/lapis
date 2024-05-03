@@ -16,5 +16,8 @@
 
     <!-- Home Page -->
     <string name="search_title">Your next destination…</string>
+    <string name="search">Search</string>
     <string name="our_picks">Our picks</string>
+    <string name="blue_logo_desc">Blue \'Lapis\' logo</string>
+    <string name="user_icon_desc">User icon</string>
 </resources>
