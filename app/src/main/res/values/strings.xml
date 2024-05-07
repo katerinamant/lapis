@@ -27,6 +27,7 @@
     <string name="rental_name">Rental name</string>
     <string name="rental_location">Location</string>
     <string name="rental_capacity">Capacity:</string>
+    <string name="nightly_rate">Nightly Rate</string>
     <string name="euro_symbol">€</string>
     <string name="check_availability">Check availability</string>
 </resources>

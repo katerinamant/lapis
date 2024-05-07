@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rental_list_constraint_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_item_rounded_with_color">
+
+    <ImageView
+        android:id="@+id/rental_item_image"
+        android:layout_width="142dp"
+        android:layout_height="94dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shadow_rect"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lapis_logo_blue_cropped"
+        android:contentDescription="@string/rental_image_desc" />
+
+    <TextView
+        android:id="@+id/rental_item_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_bold"
+        android:maxLines="2"
+        android:text="@string/rental_name"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/rental_item_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/rental_location"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_name" />
+
+    <TextView
+        android:id="@+id/rental_item_euro_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_bold"
+        android:maxLines="2"
+        android:text="@string/euro_symbol"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_bold"
+        android:maxLines="2"
+        android:text="@string/nightly_rate"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/rental_item_euro_symbol"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+</androidx.constraintlayout.widget.ConstraintLayout>

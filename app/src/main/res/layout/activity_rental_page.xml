@@ -124,7 +124,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/inter_semibold"
         android:maxLines="2"
-        android:text="@string/na"
+        android:text="@string/nightly_rate"
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="@color/black"
