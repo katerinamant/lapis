@@ -30,4 +30,10 @@
     <string name="nightly_rate">Nightly Rate</string>
     <string name="euro_symbol">€</string>
     <string name="check_availability">Check availability</string>
+
+    <!-- User Page -->
+    <string name="user_title">Hi, guest!</string>
+    <string name="edit">Edit</string>
+    <string name="phone_number">Phone number</string>
+    <string name="rate_your_stays">Rate your stays</string>
 </resources>
