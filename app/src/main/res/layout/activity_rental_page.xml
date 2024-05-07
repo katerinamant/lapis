@@ -150,7 +150,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rental_capacity" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_check_availability"
         android:layout_width="227dp"
         android:layout_height="58dp"
