@@ -36,4 +36,7 @@
     <string name="edit">Edit</string>
     <string name="phone_number">Phone number</string>
     <string name="rate_your_stays">Rate your stays</string>
+
+    <!-- Stay List Item -->
+    <string name="your_stay_at">Your stay at</string>
 </resources>
