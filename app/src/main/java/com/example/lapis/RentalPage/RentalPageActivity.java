@@ -1,11 +1,14 @@
 package com.example.lapis.RentalPage;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
+import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -22,6 +25,10 @@ public class RentalPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_page);
+
+        // Home button
+        ImageView headerLogo = findViewById(R.id.rentalpage_header_logo);
+        headerLogo.setOnClickListener(view -> goToHomepage());
 
         MaterialButton checkAvailabilityButton = findViewById(R.id.btn_check_availability);
         checkAvailabilityButton.setOnClickListener(view -> DatePickerDialog());
@@ -52,5 +59,10 @@ public class RentalPageActivity extends AppCompatActivity {
 
         // Show the date picker dialog
         materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+    }
+
+    private void goToHomepage() {
+        Intent intent = new Intent(RentalPageActivity.this, HomePageActivity.class);
+        startActivity(intent);
     }
 }

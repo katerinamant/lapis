@@ -30,18 +30,19 @@
         android:id="@+id/rental_image"
         android:layout_width="304dp"
         android:layout_height="177dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/shadow_rect"
         android:contentDescription="@string/rental_image_desc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider4"
         app:srcCompat="@drawable/lapis_logo_blue_cropped" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="409dp"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="20dp"
         android:background="@color/royal_blue"
         android:backgroundTint="@color/royal_blue"
@@ -168,4 +169,25 @@
         app:layout_constraintTop_toBottomOf="@+id/rental_nightly_rate"
         app:strokeColor="@color/royal_blue"
         app:strokeWidth="1dp" />
+
+    <View
+        android:id="@+id/divider4"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="78dp"
+        android:background="@color/royal_blue"
+        android:backgroundTint="@color/royal_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/rentalpage_header_logo"
+        android:layout_width="151dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lapis_logo_blue_cropped"
+        android:contentDescription="@string/blue_logo_desc" />
 </androidx.constraintlayout.widget.ConstraintLayout>
