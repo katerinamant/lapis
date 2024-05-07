@@ -1,10 +1,10 @@
 package com.example.lapis.RentalPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.util.Pair;
-
 import android.os.Bundle;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Pair;
 
 import com.example.lapis.R;
 import com.google.android.material.button.MaterialButton;
@@ -32,12 +32,12 @@ public class RentalPageActivity extends AppCompatActivity {
         CalendarConstraints calendarConstraints = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build();
 
         // Create builder
-        MaterialDatePicker.Builder<Pair<Long,Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
+        MaterialDatePicker.Builder<Pair<Long, Long>> builder = MaterialDatePicker.Builder.dateRangePicker();
         builder.setCalendarConstraints(calendarConstraints);
         builder.setTheme(R.style.ThemeOverlay_App_MaterialCalendar);
         builder.setTitleText("Select dates:");
 
-        MaterialDatePicker<Pair<Long,Long>> materialDatePicker = builder.build();
+        MaterialDatePicker<Pair<Long, Long>> materialDatePicker = builder.build();
 
         materialDatePicker.addOnPositiveButtonClickListener(selection -> {
             // Retrieve the selected start and end dates
@@ -48,9 +48,7 @@ public class RentalPageActivity extends AppCompatActivity {
             Toast.makeText(RentalPageActivity.this, selectedDateRange, Toast.LENGTH_SHORT).show();
         });
 
-        materialDatePicker.addOnNegativeButtonClickListener(view -> {
-            materialDatePicker.dismiss();
-        });
+        materialDatePicker.addOnNegativeButtonClickListener(view -> materialDatePicker.dismiss());
 
         // Show the date picker dialog
         materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
