@@ -3,6 +3,7 @@
 
     <!-- Misc -->
     <string name="ok">OK</string>
+    <string name="na">N/A</string>
 
     <!-- Landing Page -->
     <string name="get_started">Get started</string>
@@ -20,4 +21,12 @@
     <string name="our_picks">Our picks</string>
     <string name="blue_logo_desc">Blue \'Lapis\' logo</string>
     <string name="user_icon_desc">User icon</string>
+
+    <!-- Rental Page -->
+    <string name="rental_image_desc">Rental image</string>
+    <string name="rental_name">Rental name</string>
+    <string name="rental_location">Location</string>
+    <string name="rental_capacity">Capacity:</string>
+    <string name="euro_symbol">€</string>
+    <string name="check_availability">Check availability</string>
 </resources>

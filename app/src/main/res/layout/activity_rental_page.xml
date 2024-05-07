@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:elevation="2dp"
+    tools:context=".RentalPage.RentalPageActivity">
+
+    <TextView
+        android:id="@+id/rental_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/rental_location"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/rental_rating"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_name" />
+
+    <ImageView
+        android:id="@+id/rental_image"
+        android:layout_width="304dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/shadow_rect"
+        android:contentDescription="@string/rental_image_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/royal_blue"
+        android:backgroundTint="@color/royal_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_image" />
+
+    <TextView
+        android:id="@+id/rental_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_extrabold"
+        android:maxLines="2"
+        android:text="@string/rental_name"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/royal_blue"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+    <RatingBar
+        android:id="@+id/rental_rating"
+        style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="20dp"
+        android:isIndicator="true"
+        android:rating="5"
+        android:stepSize="0.5"
+        android:theme="@style/RatingBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_name" />
+
+    <TextView
+        android:id="@+id/rental_capacity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/rental_capacity"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_location" />
+
+    <TextView
+        android:id="@+id/rental_capacity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/na"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rental_capacity_title"
+        app:layout_constraintTop_toBottomOf="@+id/rental_location" />
+
+    <TextView
+        android:id="@+id/rental_nightly_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/na"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/euro_symbol"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_capacity" />
+
+    <TextView
+        android:id="@+id/euro_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_semibold"
+        android:maxLines="2"
+        android:text="@string/euro_symbol"
+        android:textAlignment="viewEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_capacity" />
+
+    <Button
+        android:id="@+id/btn_check_availability"
+        android:layout_width="227dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="100dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/check_availability"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/royal_blue"
+        android:textSize="18sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rental_nightly_rate"
+        app:strokeColor="@color/royal_blue"
+        app:strokeWidth="1dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

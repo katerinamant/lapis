@@ -12,4 +12,7 @@
 
     <!-- Misc -->
     <color name="hint">#A6A6A6</color>
+
+    <!-- Rating -->
+    <color name="ratings_bar">#F9D978</color>
 </resources>

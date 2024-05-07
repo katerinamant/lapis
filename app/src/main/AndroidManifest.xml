@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Lapis"
         tools:targetApi="31">
         <activity
+            android:name=".RentalPage.RentalPageActivity"
+            android:exported="true" />
+        <activity
             android:name=".HomePage.HomePageActivity"
             android:exported="false" />
         <activity
