@@ -27,9 +27,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         final LoginPresenter presenter = new LoginPresenter(this);
 
-        emailField = findViewById(R.id.edit_text_email);
-        passwordField = findViewById(R.id.edit_text_password);
-        enterButton = findViewById(R.id.btn_enter);
+        emailField = findViewById(R.id.login_edit_text_email);
+        passwordField = findViewById(R.id.login_edit_text_password);
+        enterButton = findViewById(R.id.login_btn_enter);
 
         // Enter button is disabled
         enterButtonIsEnabled = false;

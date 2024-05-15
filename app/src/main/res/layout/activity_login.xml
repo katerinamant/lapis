@@ -20,7 +20,7 @@
         android:contentDescription="@string/logo_desc" />
 
     <TextView
-        android:id="@+id/email_title"
+        android:id="@+id/login_email_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="320dp"
@@ -35,12 +35,12 @@
         app:layout_constraintTop_toBottomOf="@+id/logo" />
 
     <EditText
-        android:id="@+id/edit_text_email"
+        android:id="@+id/login_edit_text_email"
         android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:autofillHints="{@value #AUTOFILL_HINT_EMAIL_ADDRESS}"
-        android:background="@drawable/edittext_rounded"
+        android:background="@drawable/rounded_rect"
         android:ems="10"
         android:fontFamily="@font/inter_light"
         android:hint="@string/email"
@@ -53,11 +53,11 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_title"
+        app:layout_constraintTop_toBottomOf="@+id/login_email_title"
         tools:ignore="TextContrastCheck" />
 
     <TextView
-        android:id="@+id/password_title"
+        android:id="@+id/login_password_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -69,15 +69,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.226"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_email" />
+        app:layout_constraintTop_toBottomOf="@+id/login_edit_text_email" />
 
     <EditText
-        android:id="@+id/edit_text_password"
+        android:id="@+id/login_edit_text_password"
         android:layout_width="255dp"
         android:layout_height="48dp"
         android:layout_marginTop="5dp"
         android:autofillHints="{@value #AUTOFILL_HINT_PASSWORD}"
-        android:background="@drawable/edittext_rounded"
+        android:background="@drawable/rounded_rect"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -89,11 +89,11 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_title"
+        app:layout_constraintTop_toBottomOf="@+id/login_password_title"
         tools:ignore="TextContrastCheck" />
 
     <Button
-        android:id="@+id/btn_enter"
+        android:id="@+id/login_btn_enter"
         android:layout_width="100dp"
         android:layout_height="55dp"
         android:backgroundTint="@color/white"
@@ -106,6 +106,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_password"
+        app:layout_constraintTop_toBottomOf="@+id/login_edit_text_password"
         app:layout_constraintVertical_bias="0.19999999" />
 </androidx.constraintlayout.widget.ConstraintLayout>

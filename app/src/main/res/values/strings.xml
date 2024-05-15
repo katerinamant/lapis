@@ -10,9 +10,17 @@
     <string name="login">Login</string>
     <string name="logo_desc">White \'Lapis\' logo</string>
 
-    <!-- Login Page-->
+    <!-- SignUp Page -->
+    <string name="welcome">Welcome to Lapis</string>
+    <string name="signup_to_use">Sign up to use our services</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="sign_up">Sign Up</string>
+
+    <!-- Login Page-->
     <string name="enter">Enter</string>
 
     <!-- Home Page -->
@@ -34,7 +42,6 @@
     <!-- User Page -->
     <string name="user_title">Hi, guest!</string>
     <string name="edit">Edit</string>
-    <string name="phone_number">Phone number</string>
     <string name="rate_your_stays">Rate your stays</string>
 
     <!-- Stay List Item -->
