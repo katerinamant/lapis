@@ -28,7 +28,10 @@ public class RentalPageActivity extends AppCompatActivity {
 
         // Home button
         ImageView headerLogo = findViewById(R.id.rentalpage_header_logo);
-        headerLogo.setOnClickListener(view -> goToHomepage());
+        headerLogo.setOnClickListener(view -> {
+            Intent intent = new Intent(RentalPageActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        });
 
         MaterialButton checkAvailabilityButton = findViewById(R.id.btn_check_availability);
         checkAvailabilityButton.setOnClickListener(view -> DatePickerDialog());
@@ -59,10 +62,5 @@ public class RentalPageActivity extends AppCompatActivity {
 
         // Show the date picker dialog
         materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
-    }
-
-    private void goToHomepage() {
-        Intent intent = new Intent(RentalPageActivity.this, HomePageActivity.class);
-        startActivity(intent);
     }
 }

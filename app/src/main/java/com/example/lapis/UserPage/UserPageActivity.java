@@ -18,11 +18,10 @@ public class UserPageActivity extends AppCompatActivity {
 
         // Home button
         ImageView headerLogo = findViewById(R.id.userpage_header_logo);
-        headerLogo.setOnClickListener(view -> goToHomepage());
-    }
-
-    private void goToHomepage() {
-        Intent intent = new Intent(UserPageActivity.this, HomePageActivity.class);
-        startActivity(intent);
+        headerLogo.setOnClickListener(view -> {
+            // Go to HomePage
+            Intent intent = new Intent(UserPageActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        });
     }
 }
