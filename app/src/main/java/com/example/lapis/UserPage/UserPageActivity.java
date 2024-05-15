@@ -1,10 +1,10 @@
 package com.example.lapis.UserPage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
