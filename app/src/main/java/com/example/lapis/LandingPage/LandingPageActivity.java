@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lapis.LoginPage.LoginActivity;
 import com.example.lapis.R;
+import com.example.lapis.SignUpPage.SignUpActivity;
 
 public class LandingPageActivity extends AppCompatActivity {
 
@@ -17,7 +18,10 @@ public class LandingPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page);
 
         Button getStartedButton = findViewById(R.id.btn_get_started);
-        // TODO: Add functionality
+        getStartedButton.setOnClickListener(v -> {
+            Intent intent = new Intent(LandingPageActivity.this, SignUpActivity.class);
+            startActivity(intent);
+        });
 
         Button loginButton = findViewById(R.id.btn_login);
         loginButton.setOnClickListener(v -> {

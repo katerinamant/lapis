@@ -1,11 +1,11 @@
-package com.example.lapis.LoginPage;
+package com.example.lapis.SignUpPage;
 
-public interface LoginView {
+public interface SignUpView {
     /**
-     * User successfully logged in,
+     * User successfully signed up,
      * and is redirected to HomePageActivity
      */
-    void successfulLogIn();
+    void successfulSignUp();
 
     void showError(String title, String msg);
 
