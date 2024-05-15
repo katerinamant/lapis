@@ -27,7 +27,7 @@ public class HomePageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        EditText searchbar = findViewById(R.id.edit_text_destination);
+        EditText searchbar = findViewById(R.id.homepage_edit_text_destination);
         searchbar.setOnEditorActionListener((textView, i, keyEvent) -> {
             if (i == EditorInfo.IME_ACTION_SEARCH) {
                 Intent intent = new Intent(HomePageActivity.this, SearchPageActivity.class);

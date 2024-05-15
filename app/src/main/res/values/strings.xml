@@ -30,6 +30,24 @@
     <string name="blue_logo_desc">Blue \'Lapis\' logo</string>
     <string name="user_icon_desc">User icon</string>
 
+    <!-- User Page -->
+    <string name="user_title">Hi, guest!</string>
+    <string name="edit">Edit</string>
+    <string name="rate_your_stays">Rate your stays</string>
+
+    <!-- Search Page -->
+    <string name="destination">Destination</string>
+    <string name="clear_filters_desc">Blue clear filters icon</string>
+    <string name="calendar_dec">Blue calendar icon</string>
+    <string name="choose_dates">Choose dates</string>
+    <string name="capacity_desc">Blue capacity icon</string>
+    <string name="minus">-</string>
+    <string name="capacity">Capacity</string>
+    <string name="plus">+</string>
+    <string name="under">Under</string>
+    <string name="price">Price</string>
+    <string name="price_per_night">€ per night</string>
+
     <!-- Rental Page -->
     <string name="rental_image_desc">Rental image</string>
     <string name="rental_name">Rental name</string>
@@ -38,11 +56,6 @@
     <string name="nightly_rate">Nightly Rate</string>
     <string name="euro_symbol">€</string>
     <string name="check_availability">Check availability</string>
-
-    <!-- User Page -->
-    <string name="user_title">Hi, guest!</string>
-    <string name="edit">Edit</string>
-    <string name="rate_your_stays">Rate your stays</string>
 
     <!-- Stay List Item -->
     <string name="your_stay_at">Your stay at</string>

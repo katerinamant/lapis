@@ -7,4 +7,220 @@
     android:background="@color/white"
     android:backgroundTint="@color/white"
     tools:context=".SearchPage.SearchPageActivity">
+
+    <View
+        android:id="@+id/divider_search_page"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="78dp"
+        android:background="@color/royal_blue"
+        android:backgroundTint="@color/royal_blue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/searchpage_header_logo"
+        android:layout_width="151dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/divider_search_page"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.666"
+        app:srcCompat="@drawable/lapis_logo_blue_cropped"
+        android:contentDescription="@string/blue_logo_desc" />
+
+    <EditText
+        android:id="@+id/searchpage_edit_text_destination"
+        android:layout_width="260dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_rect_thick_stroke"
+        android:drawableStart="@drawable/search_icon_settings"
+        android:ems="10"
+        android:fontFamily="@font/inter_regular"
+        android:hint="@string/destination"
+        android:imeOptions="actionSearch"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/clear_filters_icon"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_search_page" />
+
+    <ImageView
+        android:id="@+id/calendar_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/calendar_dec"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchpage_edit_text_destination"
+        app:srcCompat="@drawable/calendar_icon" />
+
+    <ImageView
+        android:id="@+id/clear_filters_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_search_page"
+        app:srcCompat="@drawable/clear_filters_icon"
+        android:contentDescription="@string/clear_filters_desc" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_choose_dates"
+        android:layout_width="260dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/choose_dates"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/hint"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintStart_toEndOf="@+id/calendar_icon"
+        app:layout_constraintTop_toBottomOf="@+id/searchpage_edit_text_destination"
+        app:strokeColor="@color/royal_blue"
+        app:strokeWidth="1dp" />
+
+    <ImageView
+        android:id="@+id/capacity_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/capacity_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendar_icon"
+        app:srcCompat="@drawable/capacity_icon" />
+
+    <TextView
+        android:id="@+id/capacity_minus"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="@string/minus"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/capacity_icon"
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_dates" />
+
+    <TextView
+        android:id="@+id/capacity_text"
+        android:layout_width="94dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_rect_thin_stroke"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/capacity"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/hint"
+        android:textSize="16sp"
+        app:cornerRadius="8dp"
+        app:layout_constraintStart_toEndOf="@+id/capacity_minus"
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_dates" />
+
+    <TextView
+        android:id="@+id/capacity_plus"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="@string/plus"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="32sp"
+        app:layout_constraintStart_toEndOf="@+id/capacity_text"
+        app:layout_constraintTop_toBottomOf="@+id/btn_choose_dates" />
+
+    <TextView
+        android:id="@+id/price_under"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/under"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/capacity_icon" />
+
+    <EditText
+        android:id="@+id/searchpage_edit_text_price"
+        android:layout_width="80dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded_rect_thick_stroke"
+        android:ems="10"
+        android:fontFamily="@font/inter_regular"
+        android:hint="@string/price"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="@color/hint"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/price_under"
+        app:layout_constraintTop_toBottomOf="@+id/capacity_icon" />
+
+    <TextView
+        android:id="@+id/price_per_night"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/price_per_night"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/searchpage_edit_text_price"
+        app:layout_constraintTop_toBottomOf="@+id/capacity_icon" />
+
+    <RatingBar
+        android:id="@+id/searchpage_rating_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:isIndicator="false"
+        android:stepSize="0.5"
+        android:theme="@style/RatingBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchpage_edit_text_price" />
+
+    <Button
+        android:id="@+id/btn_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/royal_blue"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/search"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.552"
+        app:layout_constraintStart_toEndOf="@+id/searchpage_rating_bar"
+        app:layout_constraintTop_toBottomOf="@+id/searchpage_edit_text_price" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
