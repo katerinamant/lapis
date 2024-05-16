@@ -2,17 +2,22 @@ package com.example.lapis.LoginPage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
+import com.example.lapis.Utils.Utils;
 
 public class LoginActivity extends AppCompatActivity implements LoginView {
     private EditText emailField, passwordField;
@@ -20,12 +25,29 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private boolean enterButtonIsEnabled;
     private String email, password;
 
+    public Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+
+            String status = message.getData().getString(Utils.BODY_FIELD_STATUS);
+            assert status != null;
+            if (status.equals("OK")) {
+                // Correct credentials
+                LoginActivity.this.successfulLogIn();
+            } else {
+                // Incorrect credentials, showing error
+                LoginActivity.this.showError("Login unsuccessful.", "Wrong credentials. Try again.");
+            }
+            return false;
+        }
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        final LoginPresenter presenter = new LoginPresenter(this);
+        final LoginPresenter presenter = new LoginPresenter(this, handler);
 
         emailField = findViewById(R.id.login_edit_text_email);
         passwordField = findViewById(R.id.login_edit_text_password);

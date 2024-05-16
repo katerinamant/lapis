@@ -1,10 +1,14 @@
 package com.example.lapis.LoginPage;
 
+import android.os.Handler;
+
 public class LoginPresenter {
     private final LoginView view;
+    private final Handler handler;
 
-    public LoginPresenter(LoginView view) {
+    public LoginPresenter(LoginView view, Handler handler) {
         this.view = view;
+        this.handler = handler;
     }
 
     void onEnter(boolean enterButtonIsEnabled, String email, String password) {
@@ -14,13 +18,7 @@ public class LoginPresenter {
             return;
         }
 
-        // TODO: Add credentials lookup
-        if (email.equals("guest@example.com") && password.equals("guest")) {
-            // Correct credentials
-            view.successfulLogIn();
-        } else {
-            // Incorrect credentials, showing error
-            view.showError("Login unsuccessful.", "Wrong credentials. Try again.");
-        }
+        LoginThread loginThread = new LoginThread(this.handler, email, password);
+        new Thread(loginThread).start();
     }
 }
