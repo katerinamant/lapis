@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/rental_item_rate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -97,5 +97,5 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_rate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

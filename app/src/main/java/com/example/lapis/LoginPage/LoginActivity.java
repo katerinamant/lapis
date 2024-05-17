@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private boolean enterButtonIsEnabled;
     private String email, password;
 
-    public Handler handler = new Handler(Looper.getMainLooper(), message -> {
+    private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         String status = message.getData().getString(Utils.BODY_FIELD_STATUS);
         assert status != null;
         if (status.equals("OK")) {
