@@ -25,21 +25,17 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
     private boolean enterButtonIsEnabled;
     private String email, password;
 
-    public Handler handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message message) {
-
-            String status = message.getData().getString(Utils.BODY_FIELD_STATUS);
-            assert status != null;
-            if (status.equals("OK")) {
-                // Correct credentials
-                LoginActivity.this.successfulLogIn();
-            } else {
-                // Incorrect credentials, showing error
-                LoginActivity.this.showError("Login unsuccessful.", "Wrong credentials. Try again.");
-            }
-            return false;
+    public Handler handler = new Handler(Looper.getMainLooper(), message -> {
+        String status = message.getData().getString(Utils.BODY_FIELD_STATUS);
+        assert status != null;
+        if (status.equals("OK")) {
+            // Correct credentials
+            this.successfulLogIn();
+        } else {
+            // Incorrect credentials, showing error
+            this.showError("Login unsuccessful.", "Wrong credentials. Try again.");
         }
+        return false;
     });
 
     @Override

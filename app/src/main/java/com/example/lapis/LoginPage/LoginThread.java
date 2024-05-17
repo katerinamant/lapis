@@ -65,6 +65,10 @@ public class LoginThread implements Runnable {
             status = responseBody.getString(Utils.BODY_FIELD_STATUS);
 
             request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
+            if (request == null) {
+                Log.d("LoginThread.run()", "Error creating request");
+                throw new RuntimeException();
+            }
             Utils.clientToServer(outputStream, request.toString());
             inputStream.close();
             outputStream.close();

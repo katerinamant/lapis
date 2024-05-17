@@ -20,7 +20,7 @@ public class Utils {
     public static final String BODY_FIELD_GUEST_PASSWORD = "guestPassword";
     public static final String BODY_FIELD_STATUS = "status";
 
-    public static final String SERVER_ADDRESS = "192.168.1.71";
+    public static final String SERVER_ADDRESS = "localhost";
     public static final int SERVER_PORT = 8080;
 
     public static JSONObject createRequest(String header, String body) {
