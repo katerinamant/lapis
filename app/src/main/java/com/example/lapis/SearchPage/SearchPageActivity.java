@@ -29,13 +29,12 @@ import java.util.Locale;
 public class SearchPageActivity extends AppCompatActivity {
     String destinationFilter, datesFilter;
     int capacityFilter;
-    double priceFilter, starsFilter;
+    double nightlyRateFilter, starsFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
-        capacityFilter = 0;
 
         // Home button
         ImageView headerLogo = findViewById(R.id.searchpage_header_logo);
@@ -48,7 +47,7 @@ public class SearchPageActivity extends AppCompatActivity {
         this.destinationHandler(getIntent());
         this.datesHandler();
         this.capacityHandler();
-        this.priceHandler();
+        this.nightlyRateHandler();
         this.starsHandler();
 
         // Search button
@@ -140,16 +139,16 @@ public class SearchPageActivity extends AppCompatActivity {
         });
     }
 
-    private void priceHandler() {
-        EditText priceField = findViewById(R.id.searchpage_edit_text_price);
-        priceField.addTextChangedListener(new TextWatcher() {
+    private void nightlyRateHandler() {
+        EditText nightlyRateField = findViewById(R.id.searchpage_edit_text_price);
+        nightlyRateField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                priceFilter = Double.parseDouble(priceField.getText().toString().trim());
+                nightlyRateFilter = Double.parseDouble(nightlyRateField.getText().toString().trim());
             }
 
             @Override
