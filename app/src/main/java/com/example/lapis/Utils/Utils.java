@@ -7,12 +7,14 @@ import androidx.annotation.IdRes;
 
 import com.example.lapis.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 public class Utils {
     // Misc tags
@@ -36,6 +38,10 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_CAPACITY = "rentalCapacity";
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
+
+    // Ratings
+    public static final String BODY_FIELD_BOOKINGS = "bookings";
+    public static final String BODY_FIELD_BOOKING_DATES_STRING = "bookingDatesString";
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";
@@ -75,6 +81,17 @@ public class Utils {
         } catch (IOException e) {
             Log.d("Utils.serverToClient()", "Error reading Socket Input:\n" + e);
             return null;
+        }
+    }
+
+    public static void jsonArrayToList(JSONArray jsonArray, List<JSONObject> list) throws JSONException {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                list.add(jsonArray.getJSONObject(i));
+            } catch (JSONException e) {
+                Log.d("Utils.jsonArrayToList()", "Error:\n" + e);
+                throw e;
+            }
         }
     }
 }
