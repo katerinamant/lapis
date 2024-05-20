@@ -35,9 +35,17 @@ import java.util.List;
 public class UserPageActivity extends AppCompatActivity implements RatingsRecyclerViewAdapter.ItemSelectionListener {
     RelativeLayout relativeLayout;
     UserPageViewModel viewModel;
+    final PopupWindow[] confirmRatingPopup = {null};
 
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         try {
+            if (message.getData().containsKey(Utils.BODY_FIELD_STATUS)) {
+                // Message was from NewRatingThread
+                UserPageActivity.this.onSuccessfulRating();
+                return true;
+            }
+
+            // Message was from UserPageTread
             // Get JSON objects for bookings with no ratings
             JSONArray bookings = new JSONArray(message.getData().getString(Utils.BODY_FIELD_BOOKINGS));
             List<JSONObject> bookingList = new ArrayList<>();
@@ -80,6 +88,15 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         });
     }
 
+    private void onSuccessfulRating() {
+        // Restart activity with an updated stays list
+        if (confirmRatingPopup[0] != null) {
+            confirmRatingPopup[0].dismiss();
+        }
+        finish();
+        startActivity(getIntent());
+    }
+
     // ItemSelectionListener implementations
     @SuppressLint("DefaultLocale")
     @Override
@@ -94,7 +111,7 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         // The array is used because
         // the variable needs to be final
         // for the onClickListener
-        final PopupWindow[] confirmRatingPopup = {new PopupWindow(pop_up, width, height, true)};
+        confirmRatingPopup[0] = new PopupWindow(pop_up, width, height, true);
         confirmRatingPopup[0].showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
 
         // Fill popup information
@@ -113,13 +130,13 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         TextView ratingText = pop_up.findViewById(R.id.popup_rating);
         ratingText.setText(String.format("%.1f", rating));
 
-        Button cancelButton = pop_up.findViewById(R.id.popup_confirm_btn);
+        Button cancelButton = pop_up.findViewById(R.id.popup_cancel_btn);
         cancelButton.setOnClickListener(v -> {
             confirmRatingPopup[0].dismiss();
             confirmRatingPopup[0] = null;
         });
 
-        Button confirmButton = pop_up.findViewById(R.id.popup_cancel_btn);
+        Button confirmButton = pop_up.findViewById(R.id.popup_confirm_btn);
         confirmButton.setOnClickListener(v -> {
             viewModel.getPresenter().onConfirmRating(booking, rating);
         });

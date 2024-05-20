@@ -39,9 +39,15 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
 
-    // Ratings
+    // Booking
+    public static final String BODY_FIELD_BOOKING_ID = "bookingId";
+
+    // Bookings with no ratings
     public static final String BODY_FIELD_BOOKINGS = "bookings";
     public static final String BODY_FIELD_BOOKING_DATES_STRING = "bookingDatesString";
+
+    // Rating
+    public static final String BODY_FIELD_RATING = "rating";
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";

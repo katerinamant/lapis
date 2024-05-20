@@ -17,6 +17,7 @@ public class UserPagePresenter {
     }
 
     public void onConfirmRating(JSONObject booking, double rating) {
-
+        NewRatingThread newRatingThread = new NewRatingThread(this.handler, booking, rating);
+        new Thread(newRatingThread).start();
     }
 }
