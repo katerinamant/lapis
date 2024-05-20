@@ -1,11 +1,20 @@
 package com.example.lapis.UserPage;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,7 +32,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserPageActivity extends AppCompatActivity {
+public class UserPageActivity extends AppCompatActivity implements RatingsRecyclerViewAdapter.ItemSelectionListener {
+    RelativeLayout relativeLayout;
+    UserPageViewModel viewModel;
+
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         try {
             // Get JSON objects for bookings with no ratings
@@ -52,8 +64,10 @@ public class UserPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
+        relativeLayout = findViewById(R.id.relative_user_page);
+
         // Load page and fetch bookings with no ratings
-        UserPageViewModel viewModel = new ViewModelProvider(this).get(UserPageViewModel.class);
+        viewModel = new ViewModelProvider(this).get(UserPageViewModel.class);
         viewModel.getPresenter().setHandler(handler);
         viewModel.getPresenter().onPageLoad();
 
@@ -63,6 +77,51 @@ public class UserPageActivity extends AppCompatActivity {
             // Go to HomePage
             Intent intent = new Intent(UserPageActivity.this, HomePageActivity.class);
             startActivity(intent);
+        });
+    }
+
+    // ItemSelectionListener implementations
+    @SuppressLint("DefaultLocale")
+    @Override
+    public void onRating(JSONObject booking, double rating) {
+        // Inflate popup layout
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View pop_up = layoutInflater.inflate(R.layout.popup_confirm_rating, null);
+
+        // Create and show confirm rating popup
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        // The array is used because
+        // the variable needs to be final
+        // for the onClickListener
+        final PopupWindow[] confirmRatingPopup = {new PopupWindow(pop_up, width, height, true)};
+        confirmRatingPopup[0].showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        // Fill popup information
+        String rentalName, rentalLocation;
+        try {
+            rentalName = booking.getString(Utils.BODY_FIELD_RENTAL_NAME);
+            rentalLocation = booking.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
+        } catch (JSONException e) {
+            Log.d("UserPageActivity.onRating()", "Error:\n" + e);
+            throw new RuntimeException(e);
+        }
+        TextView rentalNameText = pop_up.findViewById(R.id.popup_rental_name);
+        rentalNameText.setText(rentalName);
+        TextView rentalLocationText = pop_up.findViewById(R.id.popup_rental_location);
+        rentalLocationText.setText(rentalLocation);
+        TextView ratingText = pop_up.findViewById(R.id.popup_rating);
+        ratingText.setText(String.format("%.1f", rating));
+
+        Button cancelButton = pop_up.findViewById(R.id.popup_confirm_btn);
+        cancelButton.setOnClickListener(v -> {
+            confirmRatingPopup[0].dismiss();
+            confirmRatingPopup[0] = null;
+        });
+
+        Button confirmButton = pop_up.findViewById(R.id.popup_cancel_btn);
+        confirmButton.setOnClickListener(v -> {
+            viewModel.getPresenter().onConfirmRating(booking, rating);
         });
     }
 }

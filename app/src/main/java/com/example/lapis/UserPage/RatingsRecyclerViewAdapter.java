@@ -3,6 +3,7 @@ package com.example.lapis.UserPage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,11 +19,11 @@ import java.util.List;
 
 public class RatingsRecyclerViewAdapter extends RecyclerView.Adapter<RatingsRecyclerViewAdapter.ViewHolder> {
     private final List<JSONObject> ratings;
-    private final UserPageActivity activity;
+    private final UserPageActivity listener;
 
     public RatingsRecyclerViewAdapter(List<JSONObject> ratings, UserPageActivity listener) {
         this.ratings = ratings;
-        this.activity = listener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -47,6 +48,10 @@ public class RatingsRecyclerViewAdapter extends RecyclerView.Adapter<RatingsRecy
         holder.rentalName.setText(rentalName);
         holder.rentalLocation.setText(rentalLocation);
         holder.bookingDates.setText(bookingDates);
+
+        holder.ratingBar.setOnRatingBarChangeListener((ratingBar, rating, fromUser) ->
+                listener.onRating(currentBooking, (double) rating)
+        );
     }
 
 
@@ -57,6 +62,7 @@ public class RatingsRecyclerViewAdapter extends RecyclerView.Adapter<RatingsRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView rentalName, rentalLocation, bookingDates;
+        public final RatingBar ratingBar;
         private JSONObject bookingInfo;
 
         public ViewHolder(@NonNull View view) {
@@ -64,10 +70,19 @@ public class RatingsRecyclerViewAdapter extends RecyclerView.Adapter<RatingsRecy
             this.rentalName = view.findViewById(R.id.rating_item_rental_name);
             this.rentalLocation = view.findViewById(R.id.rating_item_rental_location);
             this.bookingDates = view.findViewById(R.id.rating_item_dates);
+            this.ratingBar = view.findViewById(R.id.rating_item_rating_bar);
         }
 
         public void setBookingInfo(JSONObject bookingInfo) {
             this.bookingInfo = bookingInfo;
         }
+    }
+
+    public interface ItemSelectionListener {
+        /**
+         * User updated the rating for
+         * a specific booking
+         */
+        void onRating(JSONObject booking, double rating);
     }
 }
