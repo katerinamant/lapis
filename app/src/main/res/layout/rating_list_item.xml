@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/stay_list_constraint_layout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rating_list_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/list_item_rounded_with_color">
@@ -14,10 +15,10 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stay_item_rating_bar" />
+        app:layout_constraintTop_toBottomOf="@+id/rating_item_rating_bar" />
 
     <TextView
-        android:id="@+id/stay_item_title"
+        android:id="@+id/rating_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -30,20 +31,55 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/stay_item_rental_name"
-        android:layout_width="wrap_content"
+        android:id="@+id/rating_item_rental_name"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="40dp"
+        android:ellipsize="end"
         android:fontFamily="@font/inter_bold"
+        android:maxLines="2"
         android:text="@string/na"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/stay_item_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rating_item_title"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
-        android:id="@+id/stay_item_dates"
+        android:id="@+id/rating_item_in_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="@string/in"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rating_item_title" />
+
+    <TextView
+        android:id="@+id/rating_item_rental_location"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="40dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_bold"
+        android:maxLines="2"
+        android:text="@string/na"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rating_item_in_title"
+        app:layout_constraintTop_toBottomOf="@+id/rating_item_title" />
+
+    <TextView
+        android:id="@+id/rating_item_dates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -53,10 +89,10 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stay_item_title" />
+        app:layout_constraintTop_toBottomOf="@+id/rating_item_in_title" />
 
     <RatingBar
-        android:id="@+id/stay_item_rating_bar"
+        android:id="@+id/rating_item_rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -65,5 +101,5 @@
         android:stepSize="0.5"
         android:theme="@style/RatingBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stay_item_dates" />
+        app:layout_constraintTop_toBottomOf="@+id/rating_item_dates" />
 </androidx.constraintlayout.widget.ConstraintLayout>

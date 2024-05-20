@@ -59,4 +59,5 @@
 
     <!-- Stay List Item -->
     <string name="your_stay_at">Your stay at</string>
+    <string name="in">in</string>
 </resources>
