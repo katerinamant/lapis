@@ -26,11 +26,11 @@ public class UserPageThread implements Runnable {
 
     @Override
     public void run() {
-        JSONArray rentals = new JSONArray();
+        JSONArray bookings = new JSONArray();
         try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
              DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
              DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
-            ){
+        ) {
 
             // Create request
             JSONObject requestBody = new JSONObject();
@@ -60,7 +60,7 @@ public class UserPageThread implements Runnable {
             // Handle JSON input
             JSONObject responseJson = new JSONObject(responseString);
             JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
-            rentals = responseBody.getJSONArray(Utils.BODY_FIELD_BOOKINGS);
+            bookings = responseBody.getJSONArray(Utils.BODY_FIELD_BOOKINGS);
 
             // Close connection
             request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
@@ -77,7 +77,7 @@ public class UserPageThread implements Runnable {
 
         Message msg = new Message();
         Bundle bundle = new Bundle();
-        bundle.putString(Utils.BODY_FIELD_BOOKINGS, rentals.toString());
+        bundle.putString(Utils.BODY_FIELD_BOOKINGS, bookings.toString());
         msg.setData(bundle);
         this.handler.sendMessage(msg);
     }

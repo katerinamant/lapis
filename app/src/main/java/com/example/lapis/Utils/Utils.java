@@ -1,11 +1,6 @@
 package com.example.lapis.Utils;
 
 import android.util.Log;
-import android.widget.TextView;
-
-import androidx.annotation.IdRes;
-
-import com.example.lapis.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,8 +71,8 @@ public class Utils {
             stream.writeUTF(msg);
             stream.flush();
         } catch (IOException e) {
-           Log.d("Utils.clientToServer()", "Error sending Socket Output:\n" + e);
-           throw e;
+            Log.d("Utils.clientToServer()", "Error sending Socket Output:\n" + e);
+            throw e;
         }
     }
 

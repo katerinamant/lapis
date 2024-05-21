@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.lapis.R;
 import com.example.lapis.Utils.Requests;
 import com.example.lapis.Utils.Utils;
 
@@ -31,11 +30,10 @@ public class NewRatingThread implements Runnable {
 
     @Override
     public void run() {
-        JSONArray rentals = new JSONArray();
         try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
              DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
              DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
-        ){
+        ) {
 
             // Create request
             JSONObject requestBody = new JSONObject();

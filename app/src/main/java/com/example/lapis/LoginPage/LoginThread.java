@@ -1,8 +1,8 @@
 package com.example.lapis.LoginPage;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.example.lapis.Utils.Requests;
