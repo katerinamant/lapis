@@ -126,7 +126,7 @@
             app:layout_constraintStart_toEndOf="@+id/popup_cancel_btn"
             app:layout_constraintTop_toBottomOf="@+id/popup_rating"
             app:strokeColor="@color/royal_blue"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
