@@ -17,7 +17,6 @@ import android.widget.PopupWindow;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -197,9 +196,7 @@ public class RentalPageActivity extends AppCompatActivity {
         });
 
         Button confirmButton = pop_up.findViewById(R.id.popup_booking_confirm_btn);
-        confirmButton.setOnClickListener(v -> {
-            presenter.onConfirmBooking(guestEmail, startDateString, endDateString);
-        });
+        confirmButton.setOnClickListener(v -> presenter.onConfirmBooking(guestEmail, startDateString, endDateString));
     }
 
     public void showError(String title, String msg) {

@@ -70,8 +70,8 @@ public class Utils {
             stream.writeUTF(msg);
             stream.flush();
         } catch (IOException e) {
-           Log.d("Utils.clientToServer()", "Error sending Socket Output:\n" + e);
-           throw e;
+            Log.d("Utils.clientToServer()", "Error sending Socket Output:\n" + e);
+            throw e;
         }
     }
 

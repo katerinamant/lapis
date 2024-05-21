@@ -35,7 +35,7 @@ public class NewBookingThread implements Runnable {
         try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
              DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
              DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
-        ){
+        ) {
             // Create request
             JSONObject requestBody = new JSONObject();
             try {
