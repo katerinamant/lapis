@@ -38,8 +38,8 @@ public class LoginThread implements Runnable {
             // Create request
             JSONObject requestBody = new JSONObject();
             try {
-                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, email);
-                requestBody.put(Utils.BODY_FIELD_GUEST_PASSWORD, password);
+                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
+                requestBody.put(Utils.BODY_FIELD_GUEST_PASSWORD, this.password);
             } catch (JSONException e) {
                 Log.d("LoginThread.run()", "Error creating request body:\n" + e);
                 throw new RuntimeException(e);
@@ -82,6 +82,9 @@ public class LoginThread implements Runnable {
         Message msg = new Message();
         Bundle bundle = new Bundle();
         bundle.putString(Utils.BODY_FIELD_STATUS, status);
+        if (status.equals("OK")) {
+            bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
+        }
         msg.setData(bundle);
         this.handler.sendMessage(msg);
     }

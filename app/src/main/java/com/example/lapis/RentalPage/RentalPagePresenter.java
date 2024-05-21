@@ -4,10 +4,13 @@ import android.os.Handler;
 
 public class RentalPagePresenter {
     private final Handler handler;
-    private final int rentalId;
+    private int rentalId;
 
-    public RentalPagePresenter(Handler handler, int rentalId) {
+    public RentalPagePresenter(Handler handler) {
         this.handler = handler;
+    }
+
+    public void setRentalId(int rentalId) {
         this.rentalId = rentalId;
     }
 

@@ -44,6 +44,7 @@ public class Utils {
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";
+    public static final String INTENT_KEY_DESTINATION = "destination";
 
     // Connection
     public static final String SERVER_ADDRESS = "localhost";

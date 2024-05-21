@@ -43,7 +43,8 @@ import java.util.Objects;
 public class RentalPageActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     RentalPagePresenter presenter;
-    String rentalName, rentalLocation;
+    String guestEmail, rentalName, rentalLocation;
+    int rentalId;
     double nightlyRate;
     final PopupWindow[] newBookingPopup = {null};
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
@@ -82,11 +83,12 @@ public class RentalPageActivity extends AppCompatActivity {
 
         relativeLayout = findViewById(R.id.relative_rental_page);
 
-        presenter = new RentalPagePresenter(handler, 0); // TODO
+        presenter = new RentalPagePresenter(handler);
 
         JSONObject rentalInfo = new JSONObject();
         if (savedInstanceState == null) {
             Intent intent = getIntent();
+            guestEmail = intent.getStringExtra(Utils.BODY_FIELD_GUEST_EMAIL);
             try {
                 rentalInfo = new JSONObject(Objects.requireNonNull(intent.getStringExtra(Utils.INTENT_KEY_RENTAL_INFO)));
             } catch (JSONException e) {
@@ -97,6 +99,9 @@ public class RentalPageActivity extends AppCompatActivity {
 
         // Fill page data with rental info
         try {
+            rentalId = rentalInfo.getInt(Utils.BODY_FIELD_RENTAL_ID);
+            presenter.setRentalId(rentalId);
+
             TextView rentalNameText = findViewById(R.id.rental_name);
             rentalName = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalNameText.setText(rentalName);
@@ -193,7 +198,7 @@ public class RentalPageActivity extends AppCompatActivity {
 
         Button confirmButton = pop_up.findViewById(R.id.popup_booking_confirm_btn);
         confirmButton.setOnClickListener(v -> {
-            presenter.onConfirmBooking("guest@example.com", startDateString, endDateString); // TODO
+            presenter.onConfirmBooking(guestEmail, startDateString, endDateString);
         });
     }
 
