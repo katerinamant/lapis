@@ -1,12 +1,21 @@
 package com.example.lapis.RentalPage;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,12 +35,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
 public class RentalPageActivity extends AppCompatActivity implements RentalPageView {
-    String rentalName;
+    RelativeLayout relativeLayout;
+    RentalPagePresenter presenter;
+    String rentalName, rentalLocation;
+    double nightlyRate;
+    final PopupWindow[] newBookingPopup = {null};
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         if (message.getData().containsKey(Utils.BODY_FIELD_AVAILABILITY)) {
             // Message was from CheckAvailabilityThread
@@ -55,7 +69,9 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_page);
 
-        final RentalPagePresenter presenter = new RentalPagePresenter(handler);
+        relativeLayout = findViewById(R.id.relative_rental_page);
+
+        presenter = new RentalPagePresenter(handler, 0); // TODO
 
         JSONObject rentalInfo = new JSONObject();
         if (savedInstanceState == null) {
@@ -74,8 +90,9 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
             rentalName = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalNameText.setText(rentalName);
 
-            TextView rentalLocation = findViewById(R.id.rental_location);
-            rentalLocation.setText(rentalInfo.getString(Utils.BODY_FIELD_RENTAL_LOCATION));
+            TextView rentalLocationText = findViewById(R.id.rental_location);
+            rentalLocation = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
+            rentalLocationText.setText(rentalLocation);
 
             RatingBar starsIndicator = findViewById(R.id.rental_stars);
             starsIndicator.setRating((float) rentalInfo.getDouble(Utils.BODY_FIELD_RENTAL_STARS));
@@ -83,8 +100,9 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
             TextView capacity = findViewById(R.id.rental_capacity);
             capacity.setText(String.valueOf(rentalInfo.getInt(Utils.BODY_FIELD_RENTAL_CAPACITY)));
 
-            TextView nightlyRate = findViewById(R.id.rental_nightly_rate);
-            nightlyRate.setText(String.valueOf(rentalInfo.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE)));
+            TextView nightlyRateText = findViewById(R.id.rental_nightly_rate);
+            nightlyRate = rentalInfo.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE);
+            nightlyRateText.setText(String.valueOf(nightlyRate));
         } catch (JSONException e) {
             Log.d("RentalPageActivity.onCreate()", "Could not fill rental_page layout with rental's information:\n" + e);
             throw new RuntimeException(e);
@@ -98,10 +116,10 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
         });
 
         MaterialButton checkAvailabilityButton = findViewById(R.id.btn_check_availability);
-        checkAvailabilityButton.setOnClickListener(view -> DatePickerDialog(presenter, 0)); // TODO
+        checkAvailabilityButton.setOnClickListener(view -> datePickerDialog());
     }
 
-    private void DatePickerDialog(RentalPagePresenter presenter, int rentalId) {
+    private void datePickerDialog() {
         // Create calendar constraints to only allow future days
         CalendarConstraints calendarConstraints = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build();
 
@@ -118,7 +136,7 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
             String startDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.first));
             String endDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.second));
 
-            presenter.onSelectDates(rentalId, startDate, endDate);
+            presenter.onSelectDates(startDate, endDate);
         });
 
         materialDatePicker.addOnNegativeButtonClickListener(view -> materialDatePicker.dismiss());
@@ -127,9 +145,45 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
         materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
     }
 
-    private void onAvailableRental(String startDate, String endDate) {
-        // TODO: Show popup asking for booking
-        this.showToast("Available");
+    private void onAvailableRental(String startDateString, String endDateString) {
+        // Inflate popup layout
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View pop_up = layoutInflater.inflate(R.layout.popup_new_booking, null);
+
+        // Create and show confirm rating popup
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        // The array is used because
+        // the variable needs to be final
+        // for the onClickListener
+        newBookingPopup[0] = new PopupWindow(pop_up, width, height, true);
+        newBookingPopup[0].showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        // Fill popup information
+        TextView rentalNameText = pop_up.findViewById(R.id.popup_booking_rental_name);
+        rentalNameText.setText(rentalName);
+        TextView rentalLocationText = pop_up.findViewById(R.id.popup_booking_rental_location);
+        rentalLocationText.setText(rentalLocation);
+        TextView datesText = pop_up.findViewById(R.id.popup_booking_dates);
+        datesText.setText(String.format("[%s - %s]", startDateString, endDateString));
+        // Calculate total cost
+        LocalDate startDate = LocalDate.parse(startDateString, Utils.dateFormatter);
+        LocalDate endDate = LocalDate.parse(endDateString, Utils.dateFormatter);
+        int daysBetween = (int) DAYS.between(startDate.atStartOfDay(), endDate.atStartOfDay());
+        double totalCost = daysBetween * nightlyRate;
+        TextView totalCostText = pop_up.findViewById(R.id.popup_booking_total_cost);
+        totalCostText.setText(String.valueOf(totalCost));
+
+        Button cancelButton = pop_up.findViewById(R.id.popup_booking_cancel_btn);
+        cancelButton.setOnClickListener(v -> {
+            newBookingPopup[0].dismiss();
+            newBookingPopup[0] = null;
+        });
+
+        Button confirmButton = pop_up.findViewById(R.id.popup_booking_confirm_btn);
+        confirmButton.setOnClickListener(v -> {
+            presenter.onConfirmBooking(startDateString, endDateString);
+        });
     }
 
     // RentalPageView implementations
