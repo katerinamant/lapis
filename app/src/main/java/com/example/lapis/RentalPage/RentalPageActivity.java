@@ -40,7 +40,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class RentalPageActivity extends AppCompatActivity implements RentalPageView {
+public class RentalPageActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     RentalPagePresenter presenter;
     String rentalName, rentalLocation;
@@ -61,6 +61,17 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
             return true;
         }
 
+        // Message was from NewBookingThread
+        String status = message.getData().getString(Utils.BODY_FIELD_STATUS);
+        if (newBookingPopup[0] != null) {
+            newBookingPopup[0].dismiss();
+        }
+        assert status != null;
+        if (status.equals("OK")) {
+            this.showError("Booking was successful!", "Looking forward to hosting you!");
+        } else {
+            this.showError("Booking was unsuccessful!", "Please try again different days");
+        }
         return false;
     });
 
@@ -182,18 +193,11 @@ public class RentalPageActivity extends AppCompatActivity implements RentalPageV
 
         Button confirmButton = pop_up.findViewById(R.id.popup_booking_confirm_btn);
         confirmButton.setOnClickListener(v -> {
-            presenter.onConfirmBooking(startDateString, endDateString);
+            presenter.onConfirmBooking("guest@example.com", startDateString, endDateString); // TODO
         });
     }
 
-    // RentalPageView implementations
-    @Override
     public void showError(String title, String msg) {
         new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(msg).setPositiveButton(R.string.ok, null).create().show();
-    }
-
-    @Override
-    public void showToast(String msg) {
-        Toast.makeText(RentalPageActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }

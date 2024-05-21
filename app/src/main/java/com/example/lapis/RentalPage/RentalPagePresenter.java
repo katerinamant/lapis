@@ -16,7 +16,8 @@ public class RentalPagePresenter {
         new Thread(checkAvailabilityThread).start();
     }
 
-    void onConfirmBooking(String startDate, String endDate) {
-        // TODO
+    void onConfirmBooking(String guestEmail, String startDate, String endDate) {
+        NewBookingThread newBookingThread = new NewBookingThread(this.handler, this.rentalId, guestEmail, startDate, endDate);
+        new Thread(newBookingThread).start();
     }
 }
