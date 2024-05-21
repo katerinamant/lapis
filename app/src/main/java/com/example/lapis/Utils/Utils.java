@@ -1,11 +1,6 @@
 package com.example.lapis.Utils;
 
 import android.util.Log;
-import android.widget.TextView;
-
-import androidx.annotation.IdRes;
-
-import com.example.lapis.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +31,11 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_CAPACITY = "rentalCapacity";
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
+
+    // Check availability / booking
+    public static final String BODY_FIELD_AVAILABILITY = "availability";
+    public static final String BODY_FIELD_START_DATE = "startDate";
+    public static final String BODY_FIELD_END_DATE = "endDate";
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";

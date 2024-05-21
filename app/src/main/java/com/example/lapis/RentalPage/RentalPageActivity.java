@@ -2,12 +2,15 @@ package com.example.lapis.RentalPage;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
@@ -27,12 +30,32 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class RentalPageActivity extends AppCompatActivity {
+public class RentalPageActivity extends AppCompatActivity implements RentalPageView {
+    String rentalName;
+    private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
+        if (message.getData().containsKey(Utils.BODY_FIELD_AVAILABILITY)) {
+            // Message was from CheckAvailabilityThread
+            String availability = message.getData().getString(Utils.BODY_FIELD_AVAILABILITY);
+            assert availability != null;
+            if (availability.equals("AVAILABLE")) {
+                String startDate = message.getData().getString(Utils.BODY_FIELD_START_DATE);
+                String endDate = message.getData().getString(Utils.BODY_FIELD_END_DATE);
+                this.onAvailableRental(startDate, endDate);
+            } else {
+                this.showError(String.format("%s is unavailable during these dates.", rentalName), "Try again different dates.");
+            }
+            return true;
+        }
+
+        return false;
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rental_page);
+
+        final RentalPagePresenter presenter = new RentalPagePresenter(handler);
 
         JSONObject rentalInfo = new JSONObject();
         if (savedInstanceState == null) {
@@ -47,8 +70,9 @@ public class RentalPageActivity extends AppCompatActivity {
 
         // Fill page data with rental info
         try {
-            TextView rentalName = findViewById(R.id.rental_name);
-            rentalName.setText(rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME));
+            TextView rentalNameText = findViewById(R.id.rental_name);
+            rentalName = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME);
+            rentalNameText.setText(rentalName);
 
             TextView rentalLocation = findViewById(R.id.rental_location);
             rentalLocation.setText(rentalInfo.getString(Utils.BODY_FIELD_RENTAL_LOCATION));
@@ -74,10 +98,10 @@ public class RentalPageActivity extends AppCompatActivity {
         });
 
         MaterialButton checkAvailabilityButton = findViewById(R.id.btn_check_availability);
-        checkAvailabilityButton.setOnClickListener(view -> DatePickerDialog());
+        checkAvailabilityButton.setOnClickListener(view -> DatePickerDialog(presenter, 0)); // TODO
     }
 
-    private void DatePickerDialog() {
+    private void DatePickerDialog(RentalPagePresenter presenter, int rentalId) {
         // Create calendar constraints to only allow future days
         CalendarConstraints calendarConstraints = new CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build();
 
@@ -94,13 +118,28 @@ public class RentalPageActivity extends AppCompatActivity {
             String startDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.first));
             String endDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.second));
 
-            String selectedDateRange = startDate + " - " + endDate;
-            Toast.makeText(RentalPageActivity.this, selectedDateRange, Toast.LENGTH_SHORT).show();
+            presenter.onSelectDates(rentalId, startDate, endDate);
         });
 
         materialDatePicker.addOnNegativeButtonClickListener(view -> materialDatePicker.dismiss());
 
         // Show the date picker dialog
         materialDatePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+    }
+
+    private void onAvailableRental(String startDate, String endDate) {
+        // TODO: Show popup asking for booking
+        this.showToast("Available");
+    }
+
+    // RentalPageView implementations
+    @Override
+    public void showError(String title, String msg) {
+        new AlertDialog.Builder(this).setCancelable(true).setTitle(title).setMessage(msg).setPositiveButton(R.string.ok, null).create().show();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        Toast.makeText(RentalPageActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 }
