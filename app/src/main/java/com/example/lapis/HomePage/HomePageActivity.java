@@ -35,13 +35,11 @@ public class HomePageActivity extends AppCompatActivity {
             // Get JSON objects for rentals
             JSONArray rentals = new JSONArray(message.getData().getString(Utils.BODY_FIELD_RENTALS));
             List<JSONObject> rentalList = new ArrayList<>();
-            for (int i = 0; i < rentals.length(); i++) {
-                try {
-                    rentalList.add(rentals.getJSONObject(i));
-                } catch (JSONException e) {
-                    Log.d("HomePageActivity.Handler()", "Error:\n" + e);
-                    throw new RuntimeException(e);
-                }
+            try {
+                Utils.jsonArrayToList(rentals, rentalList);
+            } catch (JSONException e) {
+                Log.d("HomePageActivity.Handler()", "Error:\n" + e);
+                throw new RuntimeException(e);
             }
 
             // Rental Recycler View

@@ -2,6 +2,7 @@ package com.example.lapis.Utils;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
+import java.util.List;
 
 public class Utils {
     public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.ENGLISH).withResolverStyle(ResolverStyle.STRICT);
@@ -41,6 +43,16 @@ public class Utils {
     public static final String BODY_FIELD_AVAILABILITY = "availability";
     public static final String BODY_FIELD_START_DATE = "startDate";
     public static final String BODY_FIELD_END_DATE = "endDate";
+  
+    // Booking
+    public static final String BODY_FIELD_BOOKING_ID = "bookingId";
+
+    // Bookings with no ratings
+    public static final String BODY_FIELD_BOOKINGS = "bookings";
+    public static final String BODY_FIELD_BOOKING_DATES_STRING = "bookingDatesString";
+
+    // Rating
+    public static final String BODY_FIELD_RATING = "rating";
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";
@@ -81,6 +93,17 @@ public class Utils {
         } catch (IOException e) {
             Log.d("Utils.serverToClient()", "Error reading Socket Input:\n" + e);
             return null;
+        }
+    }
+
+    public static void jsonArrayToList(JSONArray jsonArray, List<JSONObject> list) throws JSONException {
+        for (int i = 0; i < jsonArray.length(); i++) {
+            try {
+                list.add(jsonArray.getJSONObject(i));
+            } catch (JSONException e) {
+                Log.d("Utils.jsonArrayToList()", "Error:\n" + e);
+                throw e;
+            }
         }
     }
 }
