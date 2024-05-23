@@ -9,9 +9,14 @@ import org.json.JSONObject;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+import java.util.Locale;
 import java.util.List;
 
 public class Utils {
+    public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/uuuu", Locale.ENGLISH).withResolverStyle(ResolverStyle.STRICT);
+
     // Misc tags
     public static final String MESSAGE_TYPE = "type";
     public static final String MESSAGE_HEADER = "header";
@@ -34,6 +39,11 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
 
+    // Check availability / booking
+    public static final String BODY_FIELD_AVAILABILITY = "availability";
+    public static final String BODY_FIELD_START_DATE = "startDate";
+    public static final String BODY_FIELD_END_DATE = "endDate";
+  
     // Booking
     public static final String BODY_FIELD_BOOKING_ID = "bookingId";
 
@@ -46,6 +56,7 @@ public class Utils {
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";
+    public static final String INTENT_KEY_DESTINATION = "destination";
 
     // Connection
     public static final String SERVER_ADDRESS = "localhost";

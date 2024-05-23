@@ -28,6 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomePageActivity extends AppCompatActivity {
+    String guestEmail;
+
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         try {
             // Get JSON objects for rentals
@@ -54,6 +56,7 @@ public class HomePageActivity extends AppCompatActivity {
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(HomePageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
+        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 
@@ -61,6 +64,11 @@ public class HomePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            guestEmail = intent.getStringExtra(Utils.BODY_FIELD_GUEST_EMAIL);
+        }
 
         // Load page and fetch suggested rentals
         HomePageViewModel viewModel = new ViewModelProvider(this).get(HomePageViewModel.class);
@@ -72,6 +80,7 @@ public class HomePageActivity extends AppCompatActivity {
         headerLogo.setOnClickListener(view -> {
             // Go to UserPage
             Intent intent = new Intent(HomePageActivity.this, UserPageActivity.class);
+            intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
             startActivity(intent);
         });
 
@@ -82,7 +91,9 @@ public class HomePageActivity extends AppCompatActivity {
 
                 // Add destination input to intent
                 String destination = searchbar.getText().toString().trim();
-                intent.putExtra("destination", destination);
+                intent.putExtra(Utils.INTENT_KEY_DESTINATION, destination);
+                // Add user email to intent
+                intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
                 startActivity(intent);
                 return true;
             }

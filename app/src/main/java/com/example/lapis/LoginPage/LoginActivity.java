@@ -28,7 +28,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         assert status != null;
         if (status.equals("OK")) {
             // Correct credentials
-            this.successfulLogIn();
+            String guestEmail = message.getData().getString(Utils.BODY_FIELD_GUEST_EMAIL);
+            this.successfulLogIn(guestEmail);
         } else {
             // Incorrect credentials, showing error
             this.showError("Login unsuccessful.", "Wrong credentials. Try again.");
@@ -81,8 +82,9 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     // LoginView implementations
     @Override
-    public void successfulLogIn() {
+    public void successfulLogIn(String guestEmail) {
         Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
+        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 

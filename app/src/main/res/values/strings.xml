@@ -4,6 +4,8 @@
     <!-- Misc -->
     <string name="ok">OK</string>
     <string name="na">N/A</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Landing Page -->
     <string name="get_started">Get started</string>
@@ -56,6 +58,10 @@
     <string name="nightly_rate">Nightly Rate</string>
     <string name="euro_symbol">€</string>
     <string name="check_availability">Check availability</string>
+
+    <!-- Booking Popup -->
+    <string name="new_booking">Would you like to book this rental?</string>
+    <string name="total">Total:</string>
 
     <!-- Stay List Item -->
     <string name="your_stay_at">Your stay at</string>
