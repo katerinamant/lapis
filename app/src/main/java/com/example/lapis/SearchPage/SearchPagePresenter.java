@@ -3,6 +3,7 @@ package com.example.lapis.SearchPage;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.lapis.Utils.Filters;
 import com.example.lapis.Utils.Utils;
 
 import org.json.JSONException;
@@ -16,16 +17,27 @@ public class SearchPagePresenter {
     public void onSearch(String location, String dates, int capacity, double nightlyRate, double stars) {
         JSONObject filters = new JSONObject();
         try {
-            filters.put(Utils.BODY_FIELD_RENTAL_LOCATION, location);
-            filters.put(Utils.BODY_FIELD_RENTAL_CAPACITY, capacity);
-            filters.put(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE, nightlyRate);
-            // TODO: ADD TIME PRIOD FROM FILTERS. USE FILTERS_ENUM FROM BACKEND NOT THESE TAGS
-            filters.put(Utils.BODY_FIELD_RENTAL_STARS, stars);
+            if (!location.isEmpty()) {
+                filters.put(Filters.LOCATION.name(), location);
+            }
+            if (dates != null) {
+                filters.put(Filters.TIME_PERIOD.name(), dates);
+            }
+            if (capacity > 0) {
+                filters.put(Filters.GUESTS.name(), String.valueOf(capacity));
+            }
+            if (nightlyRate > 0) {
+                filters.put(Filters.NIGHTLY_RATE.name(), String.valueOf(nightlyRate));
+            }
+            if (stars > 0) {
+                filters.put(Filters.STARS.name(), String.valueOf(stars));
+            }
         } catch (JSONException e) {
             Log.d("SearchPagePresenter.onSearch()", "Error inserting user input into filters JSON object");
             throw new RuntimeException(e);
         }
-        // SearchPageThread searchPageThread = new SearchPageThread(this.handler);
-        // new Thread(searchPageThread).start();
+
+        SearchPageThread searchPageThread = new SearchPageThread(this.handler, filters);
+        new Thread(searchPageThread).start();
     }
 }

@@ -3,8 +3,11 @@ package com.example.lapis.SearchPage;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,27 +17,72 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
+import com.example.lapis.RentalPage.RentalPageActivity;
+import com.example.lapis.Utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class SearchPageActivity extends AppCompatActivity {
-    String destinationFilter, datesFilter;
+    String locationFilter, datesFilter;
     int capacityFilter;
     double nightlyRateFilter, starsFilter;
+
+    private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
+        try {
+            // Get JSON object for rentals
+            JSONArray rentals = new JSONArray(message.getData().getString(Utils.BODY_FIELD_RENTALS));
+            List<JSONObject> rentalList = new ArrayList<>();
+            for (int i=0; i < rentals.length(); i++) {
+                try {
+                    rentalList.add(rentals.getJSONObject(i));
+                } catch (JSONException e) {
+                    Log.d("SearchPageActivity.Handler()", "Error:\n" + e);
+                    throw new RuntimeException(e);
+                }
+            }
+
+            // Rental Recycler View
+            RecyclerView recyclerView = findViewById(R.id.search_page_rental_recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new SearchResultsRecyclerViewAdapter(rentalList, this));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    });
+
+    public void goToRentalPage(JSONObject rentalInfo) {
+        Intent intent = new Intent(SearchPageActivity.this, RentalPageActivity.class);
+        intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+
+        // Instantiate view model
+        SearchPageViewModel viewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
+        viewModel.getPresenter().setHandler(handler);
 
         // Home button
         ImageView headerLogo = findViewById(R.id.searchpage_header_logo);
@@ -53,16 +101,16 @@ public class SearchPageActivity extends AppCompatActivity {
         // Search button
         Button searchButton = findViewById(R.id.btn_search);
         searchButton.setOnClickListener(view -> {
-            // TODO: Send request and get response
+           viewModel.getPresenter().onSearch(locationFilter, datesFilter, capacityFilter, nightlyRateFilter, starsFilter);
         });
     }
 
     private void destinationHandler(Intent intent) {
         // Get destination from HomePageActivity
-        destinationFilter = intent.getStringExtra("destination");
+        locationFilter = intent.getStringExtra("destination");
         // Set destination as text of EditText
         EditText destinationField = findViewById(R.id.searchpage_edit_text_destination);
-        destinationField.setText(destinationFilter);
+        destinationField.setText(locationFilter);
         destinationField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -70,7 +118,7 @@ public class SearchPageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                destinationFilter = destinationField.getText().toString().trim();
+                locationFilter = destinationField.getText().toString().trim();
             }
 
             @Override
@@ -100,9 +148,9 @@ public class SearchPageActivity extends AppCompatActivity {
                 String startDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.first));
                 String endDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date(selection.second));
 
-                datesFilter = String.format("%s - %s", startDate, endDate);
+                datesFilter = String.format("%s-%s", startDate, endDate);
                 chooseDatesButton.setTextColor(Color.BLACK);
-                chooseDatesButton.setText(datesFilter);
+                chooseDatesButton.setText(String.format("%s - %s", startDate, endDate));
             });
 
             materialDatePicker.addOnNegativeButtonClickListener(x -> materialDatePicker.dismiss());
@@ -120,7 +168,7 @@ public class SearchPageActivity extends AppCompatActivity {
         capacityMinus.setOnClickListener(v -> {
             if (capacityFilter >= 1) {
                 capacityFilter--;
-                if (capacityFilter > 1) {
+                if (capacityFilter >= 1) {
                     capacityText.setTextColor(Color.BLACK);
                     capacityText.setText(String.valueOf(capacityFilter));
                 } else {
@@ -148,7 +196,12 @@ public class SearchPageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                nightlyRateFilter = Double.parseDouble(nightlyRateField.getText().toString().trim());
+                String nightlyRateInput = nightlyRateField.getText().toString().trim();
+                if (nightlyRateInput.isEmpty()) {
+                    nightlyRateFilter = 0;
+                } else {
+                    nightlyRateFilter = Double.parseDouble(nightlyRateInput);
+                }
             }
 
             @Override
