@@ -59,4 +59,11 @@
 
     <!-- Stay List Item -->
     <string name="your_stay_at">Your stay at</string>
+    <string name="in">in</string>
+
+    <!-- Confirm changes popup -->
+    <string name="confirm_rating">Confirm rating?</string>
+    <string name="out_of_5">/ 5</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>
