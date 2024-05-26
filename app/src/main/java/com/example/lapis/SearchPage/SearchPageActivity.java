@@ -100,8 +100,38 @@ public class SearchPageActivity extends AppCompatActivity {
 
         // Search button
         Button searchButton = findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(view -> {
-           viewModel.getPresenter().onSearch(locationFilter, datesFilter, capacityFilter, nightlyRateFilter, starsFilter);
+        searchButton.setOnClickListener(view ->
+                viewModel.getPresenter().onSearch(locationFilter, datesFilter, capacityFilter, nightlyRateFilter, starsFilter)
+        );
+
+        // Clear filters button
+        ImageView clearFiltersIcon = findViewById(R.id.clear_filters_icon);
+        clearFiltersIcon.setOnClickListener(view -> {
+            // Empty destination field
+            EditText destinationField = findViewById(R.id.searchpage_edit_text_destination);
+            destinationField.setText("");
+            locationFilter = "";
+
+            // Empty "Choose dates" button text
+            MaterialButton chooseDatesButton = findViewById(R.id.btn_choose_dates);
+            chooseDatesButton.setTextColor(ContextCompat.getColor(SearchPageActivity.this, R.color.hint));
+            chooseDatesButton.setText(getResources().getString(R.string.choose_dates));
+            datesFilter = "";
+
+            // Empty capacity text
+            TextView capacityText = findViewById(R.id.capacity_text);
+            capacityText.setTextColor(ContextCompat.getColor(SearchPageActivity.this, R.color.hint));
+            capacityText.setText(getResources().getString(R.string.capacity));
+            capacityFilter = 0;
+
+            // Empty nightly rate field
+            EditText nightlyRateField = findViewById(R.id.searchpage_edit_text_price);
+            nightlyRateField.setText("");
+            nightlyRateFilter = 0;
+
+            // Empty rating bar
+            RatingBar ratingBar = findViewById(R.id.searchpage_rating_bar);
+            ratingBar.setRating(0.0f);
         });
     }
 
