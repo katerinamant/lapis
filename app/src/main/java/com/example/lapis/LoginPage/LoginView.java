@@ -5,7 +5,7 @@ public interface LoginView {
      * User successfully logged in,
      * and is redirected to HomePageActivity
      */
-    void successfulLogIn();
+    void successfulLogIn(String guestEmail);
 
     void showError(String title, String msg);
 

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_rect_thick_stroke">
+
+        <TextView
+            android:id="@+id/popup_new_booking_title"
+            android:layout_width="365dp"
+            android:layout_height="73dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="20dp"
+            android:fontFamily="@font/inter_extrabold"
+            android:text="@string/new_booking"
+            android:textAlignment="center"
+            android:textColor="@color/royal_blue"
+            android:textSize="26sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/popup_booking_rental_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_bold"
+            android:maxLines="2"
+            android:text="@string/na"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_new_booking_title" />
+
+        <TextView
+            android:id="@+id/popup_booking_rental_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_regular"
+            android:maxLines="2"
+            android:text="@string/na"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_rental_name" />
+
+        <TextView
+            android:id="@+id/popup_booking_dates"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_regular"
+            android:maxLines="2"
+            android:text="@string/na"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_rental_location" />
+
+        <TextView
+            android:id="@+id/popup_booking_total_tile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_bold"
+            android:maxLines="2"
+            android:text="@string/total"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_dates" />
+
+        <TextView
+            android:id="@+id/popup_booking_total_cost"
+            android:layout_width="91dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_bold"
+            android:maxLines="2"
+            android:text="@string/na"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/popup_booking_total_tile"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_dates" />
+
+        <TextView
+            android:id="@+id/popup_booking_total_euro_symbol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="12dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/inter_bold"
+            android:maxLines="2"
+            android:text="@string/euro_symbol"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:layout_constraintStart_toEndOf="@+id/popup_booking_total_cost"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_dates" />
+
+        <Button
+            android:id="@+id/popup_booking_cancel_btn"
+            android:layout_width="144dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_total_cost"
+            app:strokeColor="@color/royal_blue"
+            app:strokeWidth="1dp" />
+
+        <Button
+            android:id="@+id/popup_booking_confirm_btn"
+            android:layout_width="144dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@color/white"
+            android:fontFamily="@font/inter_bold"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/royal_blue"
+            android:textSize="22sp"
+            app:cornerRadius="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.915"
+            app:layout_constraintStart_toEndOf="@+id/popup_booking_cancel_btn"
+            app:layout_constraintTop_toBottomOf="@+id/popup_booking_total_cost"
+            app:strokeColor="@color/royal_blue"
+            app:strokeWidth="1dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

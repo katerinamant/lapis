@@ -1,4 +1,4 @@
-package com.example.lapis.LoginPage;
+package com.example.lapis.RentalPage;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,37 +16,39 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class LoginThread implements Runnable {
+public class CheckAvailabilityThread implements Runnable {
     Handler handler;
-    String email, password;
+    int rentalId;
+    String startDate, endDate;
 
-    public LoginThread(Handler handler, String email, String password) {
+    public CheckAvailabilityThread(Handler handler, int rentalId, String startDate, String endDate) {
         this.handler = handler;
-        this.email = email;
-        this.password = password;
+        this.rentalId = rentalId;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     @Override
     public void run() {
-        Socket requestSocket = null;
-        String status = "ERROR";
-        try {
-            requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream());
+        String availability;
+        try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
+             DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
+             DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
+        ) {
 
             // Create request
             JSONObject requestBody = new JSONObject();
             try {
-                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
-                requestBody.put(Utils.BODY_FIELD_GUEST_PASSWORD, this.password);
+                requestBody.put(Utils.BODY_FIELD_RENTAL_ID, this.rentalId);
+                requestBody.put(Utils.BODY_FIELD_START_DATE, this.startDate);
+                requestBody.put(Utils.BODY_FIELD_END_DATE, this.endDate);
             } catch (JSONException e) {
-                Log.d("LoginThread.run()", "Error creating request body:\n" + e);
+                Log.d("CheckAvailabilityThread.run()", "Error creating request body:\n" + e);
                 throw new RuntimeException(e);
             }
-            JSONObject request = Utils.createRequest(Requests.CHECK_CREDENTIALS.name(), requestBody.toString());
+            JSONObject request = Utils.createRequest(Requests.CHECK_AVAILABILITY.name(), requestBody.toString());
             if (request == null) {
-                Log.d("LoginThread.run()", "Error creating request");
+                Log.d("CheckAvailabilityThread.run()", "Error creating request");
                 throw new RuntimeException();
             }
 
@@ -56,35 +58,33 @@ public class LoginThread implements Runnable {
             // Receive responseString
             String responseString = Utils.serverToClient(inputStream);
             if (responseString == null) {
-                Log.d("LoginThread.run()", "Error receiving responseString");
+                Log.d("CheckAvailabilityThread.run()", "Error receiving responseString");
                 throw new IOException();
             }
+
             // Handle JSON input
             JSONObject responseJson = new JSONObject(responseString);
             JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
-            status = responseBody.getString(Utils.BODY_FIELD_STATUS);
+            availability = responseBody.getString(Utils.BODY_FIELD_AVAILABILITY);
 
+            // Close connection
             request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
             if (request == null) {
-                Log.d("LoginThread.run()", "Error creating request");
+                Log.d("CheckAvailabilityThread.run()", "Error creating request");
                 throw new RuntimeException();
             }
             Utils.clientToServer(outputStream, request.toString());
-            inputStream.close();
-            outputStream.close();
-            requestSocket.close();
 
         } catch (IOException | JSONException e) {
-            Log.d("LoginThread.run()", "Error:\n" + e);
+            Log.d("CheckAvailabilityThread.run()", "Error:\n" + e);
             throw new RuntimeException(e);
         }
 
         Message msg = new Message();
         Bundle bundle = new Bundle();
-        bundle.putString(Utils.BODY_FIELD_STATUS, status);
-        if (status.equals("OK")) {
-            bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
-        }
+        bundle.putString(Utils.BODY_FIELD_AVAILABILITY, availability);
+        bundle.putString(Utils.BODY_FIELD_START_DATE, this.startDate);
+        bundle.putString(Utils.BODY_FIELD_END_DATE, this.endDate);
         msg.setData(bundle);
         this.handler.sendMessage(msg);
     }

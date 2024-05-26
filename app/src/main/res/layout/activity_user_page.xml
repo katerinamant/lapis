@@ -7,6 +7,15 @@
     android:background="@color/white"
     tools:context=".UserPage.UserPageActivity">
 
+    <RelativeLayout
+        android:id="@+id/relative_user_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
     <View
         android:id="@+id/divider5"
         android:layout_width="409dp"
@@ -64,6 +73,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_regular"
         android:maxLines="2"
@@ -72,27 +82,9 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_email_title" />
-
-    <Button
-        android:id="@+id/btn_edit_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/inter_regular"
-        android:text="@string/edit"
-        android:textAllCaps="false"
-        android:textColor="@color/royal_blue"
-        android:textSize="16sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_title"
-        app:strokeColor="@color/royal_blue"
-        app:strokeWidth="1dp" />
 
     <TextView
         android:id="@+id/user_phone_number_title"
@@ -113,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_regular"
         android:maxLines="2"
@@ -121,29 +114,12 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_phone_number_title" />
 
-    <Button
-        android:id="@+id/btn_edit_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="40dp"
-        android:backgroundTint="@color/white"
-        android:fontFamily="@font/inter_regular"
-        android:text="@string/edit"
-        android:textAllCaps="false"
-        android:textColor="@color/royal_blue"
-        android:textSize="16sp"
-        app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/user_email"
-        app:strokeColor="@color/royal_blue"
-        app:strokeWidth="1dp" />
-
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/rate_your_stays_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
@@ -154,5 +130,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_phone_number" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/user_page_ratings_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rate_your_stays_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
