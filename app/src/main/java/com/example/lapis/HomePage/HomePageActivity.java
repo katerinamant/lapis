@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -85,7 +84,7 @@ public class HomePageActivity extends AppCompatActivity {
 
                 // Add destination input to intent
                 String destination = searchbar.getText().toString().trim();
-                intent.putExtra("destination", destination);
+                intent.putExtra(Utils.INTENT_KEY_DESTINATION, destination);
                 startActivity(intent);
                 return true;
             }

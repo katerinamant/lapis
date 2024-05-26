@@ -36,9 +36,10 @@ public class Utils {
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";
+    public static final String INTENT_KEY_DESTINATION = "destination";
 
     // Connection
-    public static final String SERVER_ADDRESS = "192.168.1.62";
+    public static final String SERVER_ADDRESS = "localhost";
     public static final int SERVER_PORT = 8080;
 
     public static JSONObject createRequest(String header, String body) {

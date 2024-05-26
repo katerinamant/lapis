@@ -80,9 +80,18 @@ public class SearchPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
 
+        // Get destination from HomePageActivity
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            locationFilter = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
+        }
+
         // Instantiate view model
         SearchPageViewModel viewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
         viewModel.getPresenter().setHandler(handler);
+
+        // Execute initial search with destination
+        viewModel.getPresenter().onPageLoad(locationFilter);
 
         // Home button
         ImageView headerLogo = findViewById(R.id.searchpage_header_logo);
@@ -92,7 +101,7 @@ public class SearchPageActivity extends AppCompatActivity {
             startActivity(newIntent);
         });
 
-        this.destinationHandler(getIntent());
+        this.destinationHandler();
         this.datesHandler();
         this.capacityHandler();
         this.nightlyRateHandler();
@@ -135,9 +144,7 @@ public class SearchPageActivity extends AppCompatActivity {
         });
     }
 
-    private void destinationHandler(Intent intent) {
-        // Get destination from HomePageActivity
-        locationFilter = intent.getStringExtra("destination");
+    private void destinationHandler() {
         // Set destination as text of EditText
         EditText destinationField = findViewById(R.id.searchpage_edit_text_destination);
         destinationField.setText(locationFilter);
