@@ -41,7 +41,7 @@
         android:ems="10"
         android:fontFamily="@font/inter_regular"
         android:hint="@string/destination"
-        android:imeOptions="actionSearch"
+        android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="text"
         android:textAlignment="viewStart"
@@ -222,5 +222,15 @@
         app:layout_constraintHorizontal_bias="0.552"
         app:layout_constraintStart_toEndOf="@+id/searchpage_rating_bar"
         app:layout_constraintTop_toBottomOf="@+id/searchpage_edit_text_price" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_page_rental_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchpage_rating_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
