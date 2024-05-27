@@ -36,10 +36,11 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         final JSONObject currentRental = rentals.get(position);
         holder.setRentalInfo(currentRental);
         String rentalName, rentalLocation;
-        double rentalNightlyRate;
+        double rentalStars, rentalNightlyRate;
         try {
             rentalName = currentRental.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalLocation = currentRental.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
+            rentalStars = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_STARS);
             rentalNightlyRate = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -47,6 +48,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
 
         holder.name.setText(rentalName);
         holder.location.setText(rentalLocation);
+        holder.stars.setText(String.valueOf(rentalStars));
         holder.nightlyRate.setText(String.valueOf(rentalNightlyRate));
     }
 
@@ -57,13 +59,14 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView name, location, nightlyRate;
+        public final TextView name, location, stars, nightlyRate;
         private JSONObject rentalInfo;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.name = view.findViewById(R.id.rental_item_name);
             this.location = view.findViewById(R.id.rental_item_location);
+            this.stars = view.findViewById(R.id.rental_item_stars);
             this.nightlyRate = view.findViewById(R.id.rental_item_rate);
             view.setOnClickListener(this);
         }

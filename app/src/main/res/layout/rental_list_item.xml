@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/rental_list_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,9 +12,9 @@
         android:layout_width="142dp"
         android:layout_height="94dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
         android:background="@drawable/shadow_rect"
         android:contentDescription="@string/rental_image_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lapis_logo_blue_cropped" />
@@ -71,7 +72,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_stars" />
 
     <TextView
         android:id="@+id/rental_item_rate"
@@ -89,7 +90,7 @@
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/rental_item_euro_symbol"
         app:layout_constraintStart_toEndOf="@+id/rental_item_image"
-        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_stars" />
 
     <View
         android:id="@+id/divider3"
@@ -100,4 +101,80 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rental_item_rate" />
+
+    <TextView
+        android:id="@+id/rental_item_stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/na"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+
+    <ImageView
+        android:id="@+id/rental_item_star_icon"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="11dp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_stars"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location"
+        app:srcCompat="@drawable/star_icon"
+        android:contentDescription="@string/star_icon_desc" />
+
+    <TextView
+        android:id="@+id/rental_item_open_parenthesis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/open_parenthesis"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_star_icon"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+
+    <ImageView
+        android:id="@+id/rental_item_user_icon"
+        android:layout_width="20dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_open_parenthesis"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location"
+        app:srcCompat="@drawable/user_icon"
+        android:contentDescription="@string/small_user_icon_desc" />
+
+    <TextView
+        android:id="@+id/rental_item_no_ratings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/inter_regular"
+        android:maxLines="1"
+        android:text="@string/na"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_user_icon"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
+
+    <TextView
+        android:id="@+id/rental_item_close_parenthesis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_regular"
+        android:text="@string/close_parenthesis"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_no_ratings"
+        app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
 </androidx.constraintlayout.widget.ConstraintLayout>

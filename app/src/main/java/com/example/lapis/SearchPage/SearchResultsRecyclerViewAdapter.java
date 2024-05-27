@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
 import com.example.lapis.Utils.Utils;
 
@@ -37,10 +36,11 @@ public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<Searc
         final JSONObject currentRental = rentals.get(position);
         holder.setRentalInfo(currentRental);
         String rentalName, rentalLocation;
-        double rentalNightlyRate;
+        double rentalStars, rentalNightlyRate;
         try {
             rentalName = currentRental.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalLocation = currentRental.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
+            rentalStars = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_STARS);
             rentalNightlyRate = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE);
         } catch (JSONException e) {
             throw new RuntimeException(e);
@@ -48,6 +48,7 @@ public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<Searc
 
         holder.name.setText(rentalName);
         holder.location.setText(rentalLocation);
+        holder.stars.setText(String.valueOf(rentalStars));
         holder.nightlyRate.setText(String.valueOf(rentalNightlyRate));
     }
 
@@ -58,13 +59,14 @@ public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<Searc
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView name, location, nightlyRate;
+        public final TextView name, location, stars, nightlyRate;
         private JSONObject rentalInfo;
 
         public ViewHolder(@NonNull View view) {
             super(view);
             this.name = view.findViewById(R.id.rental_item_name);
             this.location = view.findViewById(R.id.rental_item_location);
+            this.stars = view.findViewById(R.id.rental_item_stars);
             this.nightlyRate = view.findViewById(R.id.rental_item_rate);
             view.setOnClickListener(this);
         }
@@ -80,4 +82,3 @@ public class SearchResultsRecyclerViewAdapter extends RecyclerView.Adapter<Searc
 
     }
 }
-
