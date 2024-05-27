@@ -70,6 +70,4 @@
     <!-- Confirm changes popup -->
     <string name="confirm_rating">Confirm rating?</string>
     <string name="out_of_5">/ 5</string>
-    <string name="confirm">Confirm</string>
-    <string name="cancel">Cancel</string>
 </resources>

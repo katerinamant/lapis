@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchPageActivity extends AppCompatActivity {
-    String locationFilter, datesFilter;
+    String guestEmail, locationFilter, datesFilter;
     int capacityFilter;
     double nightlyRateFilter, starsFilter;
 
@@ -50,13 +50,11 @@ public class SearchPageActivity extends AppCompatActivity {
             // Get JSON object for rentals
             JSONArray rentals = new JSONArray(message.getData().getString(Utils.BODY_FIELD_RENTALS));
             List<JSONObject> rentalList = new ArrayList<>();
-            for (int i=0; i < rentals.length(); i++) {
-                try {
-                    rentalList.add(rentals.getJSONObject(i));
-                } catch (JSONException e) {
-                    Log.d("SearchPageActivity.Handler()", "Error:\n" + e);
-                    throw new RuntimeException(e);
-                }
+            try {
+                Utils.jsonArrayToList(rentals, rentalList);
+            } catch (JSONException e) {
+                Log.d("SearchPageActivity.Handler()", "Error:\n" + e);
+                throw new RuntimeException(e);
             }
 
             // Rental Recycler View
@@ -72,6 +70,7 @@ public class SearchPageActivity extends AppCompatActivity {
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(SearchPageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
+        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 
@@ -84,6 +83,7 @@ public class SearchPageActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             locationFilter = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
+            guestEmail = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
         }
 
         // Instantiate view model
@@ -141,6 +141,9 @@ public class SearchPageActivity extends AppCompatActivity {
             // Empty rating bar
             RatingBar ratingBar = findViewById(R.id.searchpage_rating_bar);
             ratingBar.setRating(0.0f);
+
+            // Execute search with no filters
+            viewModel.getPresenter().onPageLoad(locationFilter);
         });
     }
 

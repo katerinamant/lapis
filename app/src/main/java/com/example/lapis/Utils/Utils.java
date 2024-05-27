@@ -44,7 +44,7 @@ public class Utils {
     public static final String BODY_FIELD_AVAILABILITY = "availability";
     public static final String BODY_FIELD_START_DATE = "startDate";
     public static final String BODY_FIELD_END_DATE = "endDate";
-  
+
     // Booking
     public static final String BODY_FIELD_BOOKING_ID = "bookingId";
 
@@ -148,7 +148,7 @@ public class Utils {
             throw new RuntimeException(e);
         }
     }
-  
+
     public static void jsonArrayToList(JSONArray jsonArray, List<JSONObject> list) throws JSONException {
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
