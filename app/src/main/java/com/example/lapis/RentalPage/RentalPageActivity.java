@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
+import com.bumptech.glide.Glide;
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
 import com.example.lapis.Utils.Utils;
@@ -61,6 +62,10 @@ public class RentalPageActivity extends AppCompatActivity {
 
             TextView nightlyRate = findViewById(R.id.rental_nightly_rate);
             nightlyRate.setText(String.valueOf(rentalInfo.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE)));
+
+            ImageView rentalImage = findViewById(R.id.rental_image);
+            String imgUrl = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
+            Glide.with(this).load(imgUrl).into(rentalImage);
         } catch (JSONException e) {
             Log.d("RentalPageActivity.onCreate()", "Could not fill rental_page layout with rental's information:\n" + e);
             throw new RuntimeException(e);

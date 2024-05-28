@@ -33,6 +33,7 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_CAPACITY = "rentalCapacity";
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
+    public static final String BODY_FIELD_RENTAL_IMAGE_URL = "rentalImageUrl";
 
     // Intent Keys
     public static final String INTENT_KEY_RENTAL_INFO = "rentalInfo";

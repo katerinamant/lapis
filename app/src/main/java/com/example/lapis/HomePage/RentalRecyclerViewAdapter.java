@@ -3,11 +3,13 @@ package com.example.lapis.HomePage;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.lapis.R;
 import com.example.lapis.Utils.Utils;
 
@@ -35,12 +37,13 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
     public void onBindViewHolder(@NonNull RentalRecyclerViewAdapter.ViewHolder holder, int position) {
         final JSONObject currentRental = rentals.get(position);
         holder.setRentalInfo(currentRental);
-        String rentalName, rentalLocation;
+        String rentalName, rentalLocation, imgUrl;
         double rentalNightlyRate;
         try {
             rentalName = currentRental.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalLocation = currentRental.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
             rentalNightlyRate = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE);
+            imgUrl = currentRental.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -48,6 +51,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         holder.name.setText(rentalName);
         holder.location.setText(rentalLocation);
         holder.nightlyRate.setText(String.valueOf(rentalNightlyRate));
+        Glide.with(activity).load(imgUrl).into(holder.rentalImage);
     }
 
 
@@ -58,6 +62,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView name, location, nightlyRate;
+        public final ImageView rentalImage;
         private JSONObject rentalInfo;
 
         public ViewHolder(@NonNull View view) {
@@ -65,6 +70,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
             this.name = view.findViewById(R.id.rental_item_name);
             this.location = view.findViewById(R.id.rental_item_location);
             this.nightlyRate = view.findViewById(R.id.rental_item_rate);
+            this.rentalImage = view.findViewById(R.id.rental_item_image);
             view.setOnClickListener(this);
         }
 
