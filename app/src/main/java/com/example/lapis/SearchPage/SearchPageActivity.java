@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchPageActivity extends AppCompatActivity {
-    String locationFilter, datesFilter;
+    String guestEmail, locationFilter, datesFilter;
     int capacityFilter;
     double nightlyRateFilter, starsFilter;
 
@@ -50,13 +50,11 @@ public class SearchPageActivity extends AppCompatActivity {
             // Get JSON object for rentals
             JSONArray rentals = new JSONArray(message.getData().getString(Utils.BODY_FIELD_RENTALS));
             List<JSONObject> rentalList = new ArrayList<>();
-            for (int i=0; i < rentals.length(); i++) {
-                try {
-                    rentalList.add(rentals.getJSONObject(i));
-                } catch (JSONException e) {
-                    Log.d("SearchPageActivity.Handler()", "Error:\n" + e);
-                    throw new RuntimeException(e);
-                }
+            try {
+                Utils.jsonArrayToList(rentals, rentalList);
+            } catch (JSONException e) {
+                Log.d("SearchPageActivity.Handler()", "Error:\n" + e);
+                throw new RuntimeException(e);
             }
 
             // Rental Recycler View
@@ -72,6 +70,7 @@ public class SearchPageActivity extends AppCompatActivity {
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(SearchPageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
+        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 
@@ -80,9 +79,19 @@ public class SearchPageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
 
+        // Get destination from HomePageActivity
+        if (savedInstanceState == null) {
+            Intent intent = getIntent();
+            locationFilter = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
+            guestEmail = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
+        }
+
         // Instantiate view model
         SearchPageViewModel viewModel = new ViewModelProvider(this).get(SearchPageViewModel.class);
         viewModel.getPresenter().setHandler(handler);
+
+        // Execute initial search with destination
+        viewModel.getPresenter().onPageLoad(locationFilter);
 
         // Home button
         ImageView headerLogo = findViewById(R.id.searchpage_header_logo);
@@ -92,7 +101,7 @@ public class SearchPageActivity extends AppCompatActivity {
             startActivity(newIntent);
         });
 
-        this.destinationHandler(getIntent());
+        this.destinationHandler();
         this.datesHandler();
         this.capacityHandler();
         this.nightlyRateHandler();
@@ -100,14 +109,45 @@ public class SearchPageActivity extends AppCompatActivity {
 
         // Search button
         Button searchButton = findViewById(R.id.btn_search);
-        searchButton.setOnClickListener(view -> {
-           viewModel.getPresenter().onSearch(locationFilter, datesFilter, capacityFilter, nightlyRateFilter, starsFilter);
+        searchButton.setOnClickListener(view ->
+                viewModel.getPresenter().onSearch(locationFilter, datesFilter, capacityFilter, nightlyRateFilter, starsFilter)
+        );
+
+        // Clear filters button
+        ImageView clearFiltersIcon = findViewById(R.id.clear_filters_icon);
+        clearFiltersIcon.setOnClickListener(view -> {
+            // Empty destination field
+            EditText destinationField = findViewById(R.id.searchpage_edit_text_destination);
+            destinationField.setText("");
+            locationFilter = "";
+
+            // Empty "Choose dates" button text
+            MaterialButton chooseDatesButton = findViewById(R.id.btn_choose_dates);
+            chooseDatesButton.setTextColor(ContextCompat.getColor(SearchPageActivity.this, R.color.hint));
+            chooseDatesButton.setText(getResources().getString(R.string.choose_dates));
+            datesFilter = "";
+
+            // Empty capacity text
+            TextView capacityText = findViewById(R.id.capacity_text);
+            capacityText.setTextColor(ContextCompat.getColor(SearchPageActivity.this, R.color.hint));
+            capacityText.setText(getResources().getString(R.string.capacity));
+            capacityFilter = 0;
+
+            // Empty nightly rate field
+            EditText nightlyRateField = findViewById(R.id.searchpage_edit_text_price);
+            nightlyRateField.setText("");
+            nightlyRateFilter = 0;
+
+            // Empty rating bar
+            RatingBar ratingBar = findViewById(R.id.searchpage_rating_bar);
+            ratingBar.setRating(0.0f);
+
+            // Execute search with no filters
+            viewModel.getPresenter().onPageLoad(locationFilter);
         });
     }
 
-    private void destinationHandler(Intent intent) {
-        // Get destination from HomePageActivity
-        locationFilter = intent.getStringExtra("destination");
+    private void destinationHandler() {
         // Set destination as text of EditText
         EditText destinationField = findViewById(R.id.searchpage_edit_text_destination);
         destinationField.setText(locationFilter);

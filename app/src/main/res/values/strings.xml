@@ -4,6 +4,8 @@
     <!-- Misc -->
     <string name="ok">OK</string>
     <string name="na">N/A</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Landing Page -->
     <string name="get_started">Get started</string>
@@ -48,7 +50,7 @@
     <string name="price">Price</string>
     <string name="price_per_night">€ per night</string>
 
-    <!-- Rental Page -->
+    <!-- Rental Page and Rental List Item -->
     <string name="rental_image_desc">Rental image</string>
     <string name="rental_name">Rental name</string>
     <string name="rental_location">Location</string>
@@ -56,7 +58,20 @@
     <string name="nightly_rate">Nightly Rate</string>
     <string name="euro_symbol">€</string>
     <string name="check_availability">Check availability</string>
+    <string name="open_parenthesis">(</string>
+    <string name="close_parenthesis">)</string>
+    <string name="star_icon_desc">Small star icon</string>
+    <string name="small_user_icon_desc">Small user icon</string>
+
+    <!-- Booking Popup -->
+    <string name="new_booking">Would you like to book this rental?</string>
+    <string name="total">Total:</string>
 
     <!-- Stay List Item -->
     <string name="your_stay_at">Your stay at</string>
+    <string name="in">in</string>
+
+    <!-- Confirm changes popup -->
+    <string name="confirm_rating">Confirm rating?</string>
+    <string name="out_of_5">/ 5</string>
 </resources>

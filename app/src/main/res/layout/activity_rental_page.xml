@@ -8,12 +8,21 @@
     android:elevation="2dp"
     tools:context=".RentalPage.RentalPageActivity">
 
+    <RelativeLayout
+        android:id="@+id/relative_rental_page"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent" />
+
     <TextView
         android:id="@+id/rental_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="22dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_semibold"
         android:maxLines="2"
