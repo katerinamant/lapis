@@ -107,7 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:fontFamily="@font/inter_regular"
         android:text="@string/na"
         android:textColor="@color/black"
@@ -120,11 +120,11 @@
         android:layout_width="20dp"
         android:layout_height="18dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="12dp"
+        android:contentDescription="@string/star_icon_desc"
         app:layout_constraintStart_toEndOf="@+id/rental_item_stars"
         app:layout_constraintTop_toBottomOf="@+id/rental_item_location"
-        app:srcCompat="@drawable/star_icon"
-        android:contentDescription="@string/star_icon_desc" />
+        app:srcCompat="@drawable/star_icon" />
 
     <TextView
         android:id="@+id/rental_item_open_parenthesis"
@@ -155,7 +155,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="11dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_regular"
         android:maxLines="1"

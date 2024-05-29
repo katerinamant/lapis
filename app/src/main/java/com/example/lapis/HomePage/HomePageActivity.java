@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lapis.R;
 import com.example.lapis.RentalPage.RentalPageActivity;
+import com.example.lapis.RentalRecyclerView.RecyclerViewActivity;
+import com.example.lapis.RentalRecyclerView.RentalRecyclerViewAdapter;
 import com.example.lapis.SearchPage.SearchPageActivity;
 import com.example.lapis.UserPage.UserPageActivity;
 import com.example.lapis.Utils.Utils;
@@ -27,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePageActivity extends AppCompatActivity {
+public class HomePageActivity extends AppCompatActivity implements RecyclerViewActivity {
     String guestEmail;
 
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
@@ -53,6 +55,7 @@ public class HomePageActivity extends AppCompatActivity {
         return false;
     });
 
+    @Override
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(HomePageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());

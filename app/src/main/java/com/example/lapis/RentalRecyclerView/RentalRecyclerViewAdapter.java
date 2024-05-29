@@ -1,5 +1,6 @@
-package com.example.lapis.HomePage;
+package com.example.lapis.RentalRecyclerView;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,9 @@ import java.util.List;
 
 public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecyclerViewAdapter.ViewHolder> {
     private final List<JSONObject> rentals;
-    private final HomePageActivity activity;
+    private final RecyclerViewActivity activity;
 
-    public RentalRecyclerViewAdapter(List<JSONObject> rentals, HomePageActivity listener) {
+    public RentalRecyclerViewAdapter(List<JSONObject> rentals, RecyclerViewActivity listener) {
         this.rentals = rentals;
         this.activity = listener;
     }
@@ -38,12 +39,14 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         final JSONObject currentRental = rentals.get(position);
         holder.setRentalInfo(currentRental);
         String rentalName, rentalLocation, imgUrl;
-        double rentalNightlyRate;
+        double rentalStars, rentalNightlyRate;
+        int rentalNumOfRatings;
 
         try {
             rentalName = currentRental.getString(Utils.BODY_FIELD_RENTAL_NAME);
             rentalLocation = currentRental.getString(Utils.BODY_FIELD_RENTAL_LOCATION);
             rentalStars = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_STARS);
+            rentalNumOfRatings = currentRental.getInt(Utils.BODY_FIELD_RENTAL_RATINGS_NUM);
             rentalNightlyRate = currentRental.getDouble(Utils.BODY_FIELD_RENTAL_NIGHTLY_RATE);
             imgUrl = currentRental.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
         } catch (JSONException e) {
@@ -53,8 +56,9 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         holder.name.setText(rentalName);
         holder.location.setText(rentalLocation);
         holder.stars.setText(String.valueOf(rentalStars));
+        holder.numOfRatings.setText(String.valueOf(rentalNumOfRatings));
         holder.nightlyRate.setText(String.valueOf(rentalNightlyRate));
-        Glide.with(activity).load(imgUrl).into(holder.rentalImage);
+        Glide.with((Context) activity).load(imgUrl).into(holder.rentalImage);
     }
 
 
@@ -64,7 +68,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView name, location, nightlyRate;
+        public final TextView name, location, stars, numOfRatings, nightlyRate;
         public final ImageView rentalImage;
 
         private JSONObject rentalInfo;
@@ -74,6 +78,7 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
             this.name = view.findViewById(R.id.rental_item_name);
             this.location = view.findViewById(R.id.rental_item_location);
             this.stars = view.findViewById(R.id.rental_item_stars);
+            this.numOfRatings = view.findViewById(R.id.rental_item_no_ratings);
             this.nightlyRate = view.findViewById(R.id.rental_item_rate);
             this.rentalImage = view.findViewById(R.id.rental_item_image);
             view.setOnClickListener(this);

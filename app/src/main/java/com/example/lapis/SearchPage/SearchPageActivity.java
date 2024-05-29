@@ -24,6 +24,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
 import com.example.lapis.RentalPage.RentalPageActivity;
+import com.example.lapis.RentalRecyclerView.RecyclerViewActivity;
+import com.example.lapis.RentalRecyclerView.RentalRecyclerViewAdapter;
 import com.example.lapis.Utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
@@ -40,7 +42,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchPageActivity extends AppCompatActivity {
+public class SearchPageActivity extends AppCompatActivity implements RecyclerViewActivity {
     String guestEmail, locationFilter, datesFilter;
     int capacityFilter;
     double nightlyRateFilter, starsFilter;
@@ -60,13 +62,14 @@ public class SearchPageActivity extends AppCompatActivity {
             // Rental Recycler View
             RecyclerView recyclerView = findViewById(R.id.search_page_rental_recycler_view);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(new SearchResultsRecyclerViewAdapter(rentalList, this));
+            recyclerView.setAdapter(new RentalRecyclerViewAdapter(rentalList, this));
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
         return false;
     });
 
+    @Override
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(SearchPageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
