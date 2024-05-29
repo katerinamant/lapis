@@ -22,6 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.util.Pair;
 
+import com.bumptech.glide.Glide;
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
 import com.example.lapis.Utils.Utils;
@@ -100,6 +101,10 @@ public class RentalPageActivity extends AppCompatActivity {
         try {
             rentalId = rentalInfo.getInt(Utils.BODY_FIELD_RENTAL_ID);
             presenter.setRentalId(rentalId);
+          
+            ImageView rentalImage = findViewById(R.id.rental_image);
+            String imgUrl = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
+            Glide.with(this).load(imgUrl).into(rentalImage);
 
             TextView rentalNameText = findViewById(R.id.rental_name);
             rentalName = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME);

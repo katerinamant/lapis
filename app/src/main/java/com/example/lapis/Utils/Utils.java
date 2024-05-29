@@ -39,6 +39,7 @@ public class Utils {
     public static final String BODY_FIELD_RENTAL_CAPACITY = "rentalCapacity";
     public static final String BODY_FIELD_RENTAL_STARS = "rentalStars";
     public static final String BODY_FIELD_RENTAL_STRING = "rentalString";
+    public static final String BODY_FIELD_RENTAL_IMAGE_URL = "rentalImageUrl";
 
     // Check availability / booking
     public static final String BODY_FIELD_AVAILABILITY = "availability";
