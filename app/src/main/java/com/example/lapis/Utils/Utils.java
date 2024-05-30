@@ -103,56 +103,65 @@ public class Utils {
         }
     }
 
-    public static JSONArray fetchRentalsFromServer(Requests requestType, JSONObject searchFilters) {
+    public static String sendRequestToServer(JSONObject request) {
         try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
              DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
              DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
-             ) {
-
-            // Create request
-            JSONObject requestBody = new JSONObject();
-            try {
-                // Create and send request
-                requestBody.put(BODY_FIELD_FILTERS, searchFilters);
-            } catch (JSONException e) {
-                Log.d("Utils.fetchFromServer()", "Error inserting search filters into JSON request: "+ e);
-                throw new RuntimeException(e);
-            }
-            JSONObject request = Utils.createRequest(requestType.name(), requestBody.toString());
-            if (request == null) {
-                Log.d("Utils.fetchFromServer()", "Error creating request");
-                throw new RuntimeException();
-            }
-
+        ){
             // Write to socket
             Utils.clientToServer(outputStream, request.toString());
 
             // Receive responseString
             String responseString = Utils.serverToClient(inputStream);
             if (responseString == null) {
-                Log.d("Utils.fetchFromServer()", "Error receiving responseString");
-                throw new IOException();
+                Log.d("Utils.sendRequestToServer()", "Error receiving responseString.");
+                return null;
+            }
+
+            request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
+            if (request == null) {
+                Log.d("Utils.sendRequestToServer()", "Error creating request");
+                return null;
+            }
+            Utils.clientToServer(outputStream, request.toString());
+
+            return responseString;
+        } catch (IOException e) {
+            Log.d("Utils.sendRequestToServer()", "Error:\n" + e);
+            return null;
+        }
+    }
+
+    public static JSONArray fetchRentalsFromServer(Requests requestType, JSONObject searchFilters) {
+            // Create request
+            JSONObject requestBody = new JSONObject();
+            try {
+                requestBody.put(BODY_FIELD_FILTERS, searchFilters);
+            } catch (JSONException e) {
+                Log.d("Utils.fetchFromServer()", "Error inserting search filters into JSON request:\n"+ e);
+                throw new RuntimeException(e);
+            }
+            JSONObject request = Utils.createRequest(requestType.name(), requestBody.toString());
+            if (request == null) {
+                Log.d("Utils.fetchFromServer()", "Error creating request.");
+                throw new RuntimeException();
+            }
+
+            String responseString = Utils.sendRequestToServer(request);
+            if (responseString == null) {
+                Log.d("Utils.fetchFromServer()", "Error receiving responseString.");
+                throw new RuntimeException();
             }
 
             // Handle JSON input
-            JSONObject response = new JSONObject(responseString);
-            JSONObject responseBody = new JSONObject(response.getString(Utils.MESSAGE_BODY));
-
-            // Close connection
-            request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
-            if (request == null) {
-                Log.d("Utils.fetchFromServer()", "Error creating close connection request");
-                throw new RuntimeException();
+            try {
+                JSONObject response = new JSONObject(responseString);
+                JSONObject responseBody = new JSONObject(response.getString(Utils.MESSAGE_BODY));
+                return responseBody.getJSONArray(Utils.BODY_FIELD_RENTALS);
+            } catch (JSONException e) {
+                Log.d("Utils.fetchFromServer()", "Error handling response.");
+                throw new RuntimeException(e);
             }
-            Utils.clientToServer(outputStream, request.toString());
-            return responseBody.getJSONArray(Utils.BODY_FIELD_RENTALS);
-        } catch (IOException e) {
-            Log.d("Utils.fetchFromServer()", "Error establishing communication with server: " + e );
-            throw new RuntimeException(e);
-        } catch (JSONException e) {
-            Log.d("Utils.fetchFromServer()", "Error parsing response from server" + e );
-            throw new RuntimeException(e);
-        }
     }
 
     public static void jsonArrayToList(JSONArray jsonArray, List<JSONObject> list) throws JSONException {

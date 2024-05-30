@@ -104,6 +104,7 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         // Restart activity with an updated stays list
         if (confirmRatingPopup[0] != null) {
             confirmRatingPopup[0].dismiss();
+            confirmRatingPopup[0] = null;
         }
         finish();
         startActivity(getIntent());

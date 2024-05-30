@@ -11,11 +11,6 @@ import com.example.lapis.Utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-
 public class CheckAvailabilityThread implements Runnable {
     final Handler handler;
     final int rentalId;
@@ -30,53 +25,36 @@ public class CheckAvailabilityThread implements Runnable {
 
     @Override
     public void run() {
+        // Create request
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put(Utils.BODY_FIELD_RENTAL_ID, this.rentalId);
+            requestBody.put(Utils.BODY_FIELD_START_DATE, this.startDate);
+            requestBody.put(Utils.BODY_FIELD_END_DATE, this.endDate);
+        } catch (JSONException e) {
+            Log.d("CheckAvailabilityThread.run()", "Error creating request body:\n" + e);
+            throw new RuntimeException(e);
+        }
+        JSONObject request = Utils.createRequest(Requests.CHECK_AVAILABILITY.name(), requestBody.toString());
+        if (request == null) {
+            Log.d("CheckAvailabilityThread.run()", "Error creating request");
+            throw new RuntimeException();
+        }
+
+        String responseString = Utils.sendRequestToServer(request);
+        if (responseString == null) {
+            Log.d("CheckAvailabilityThread.run()", "Error receiving responseString.");
+            throw new RuntimeException();
+        }
+
+        // Handle JSON input
         String availability;
-        try (Socket requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
-             DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
-             DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream())
-        ) {
-
-            // Create request
-            JSONObject requestBody = new JSONObject();
-            try {
-                requestBody.put(Utils.BODY_FIELD_RENTAL_ID, this.rentalId);
-                requestBody.put(Utils.BODY_FIELD_START_DATE, this.startDate);
-                requestBody.put(Utils.BODY_FIELD_END_DATE, this.endDate);
-            } catch (JSONException e) {
-                Log.d("CheckAvailabilityThread.run()", "Error creating request body:\n" + e);
-                throw new RuntimeException(e);
-            }
-            JSONObject request = Utils.createRequest(Requests.CHECK_AVAILABILITY.name(), requestBody.toString());
-            if (request == null) {
-                Log.d("CheckAvailabilityThread.run()", "Error creating request");
-                throw new RuntimeException();
-            }
-
-            // Write to socket
-            Utils.clientToServer(outputStream, request.toString());
-
-            // Receive responseString
-            String responseString = Utils.serverToClient(inputStream);
-            if (responseString == null) {
-                Log.d("CheckAvailabilityThread.run()", "Error receiving responseString");
-                throw new IOException();
-            }
-
-            // Handle JSON input
+        try {
             JSONObject responseJson = new JSONObject(responseString);
             JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
             availability = responseBody.getString(Utils.BODY_FIELD_AVAILABILITY);
-
-            // Close connection
-            request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
-            if (request == null) {
-                Log.d("CheckAvailabilityThread.run()", "Error creating request");
-                throw new RuntimeException();
-            }
-            Utils.clientToServer(outputStream, request.toString());
-
-        } catch (IOException | JSONException e) {
-            Log.d("CheckAvailabilityThread.run()", "Error:\n" + e);
+        } catch (JSONException e) {
+            Log.d("CheckAvailabilityThread.run()", "Error handling response.");
             throw new RuntimeException(e);
         }
 

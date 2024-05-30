@@ -11,11 +11,6 @@ import com.example.lapis.Utils.Utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-
 public class LoginThread implements Runnable {
     final Handler handler;
     final String email, password;
@@ -28,60 +23,41 @@ public class LoginThread implements Runnable {
 
     @Override
     public void run() {
-        Socket requestSocket = null;
-        String status = "ERROR";
-        String guestEmail = "", guestPhoneNumber = "";
+        // Create request
+        JSONObject requestBody = new JSONObject();
         try {
-            requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
-            DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
-            DataInputStream inputStream = new DataInputStream(requestSocket.getInputStream());
+            requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
+            requestBody.put(Utils.BODY_FIELD_GUEST_PASSWORD, this.password);
+        } catch (JSONException e) {
+            Log.d("LoginThread.run()", "Error creating request body:\n" + e);
+            throw new RuntimeException(e);
+        }
+        JSONObject request = Utils.createRequest(Requests.CHECK_CREDENTIALS.name(), requestBody.toString());
+        if (request == null) {
+            Log.d("LoginThread.run()", "Error creating request.");
+            throw new RuntimeException();
+        }
 
-            // Create request
-            JSONObject requestBody = new JSONObject();
+        String status;
+        String guestEmail = "", guestPhoneNumber = "";
+        String responseString = Utils.sendRequestToServer(request);
+        if (responseString == null) {
+            Log.d("LoginThread.run()", "Error receiving responseString.");
+            status = "ERROR";
+        } else {
+            // Handle JSON input
             try {
-                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
-                requestBody.put(Utils.BODY_FIELD_GUEST_PASSWORD, this.password);
+                JSONObject responseJson = new JSONObject(responseString);
+                JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
+                status = responseBody.getString(Utils.BODY_FIELD_STATUS);
+                if (status.equals("OK")) {
+                    guestEmail = responseBody.getString(Utils.BODY_FIELD_GUEST_EMAIL);
+                    guestPhoneNumber = responseBody.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER);
+                }
             } catch (JSONException e) {
-                Log.d("LoginThread.run()", "Error creating request body:\n" + e);
+                Log.d("LoginThread.run()", "Error handling response.");
                 throw new RuntimeException(e);
             }
-            JSONObject request = Utils.createRequest(Requests.CHECK_CREDENTIALS.name(), requestBody.toString());
-            if (request == null) {
-                Log.d("LoginThread.run()", "Error creating request");
-                throw new RuntimeException();
-            }
-
-            // Write to socket
-            Utils.clientToServer(outputStream, request.toString());
-
-            // Receive responseString
-            String responseString = Utils.serverToClient(inputStream);
-            if (responseString == null) {
-                Log.d("LoginThread.run()", "Error receiving responseString");
-                throw new IOException();
-            }
-            // Handle JSON input
-            JSONObject responseJson = new JSONObject(responseString);
-            JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
-            status = responseBody.getString(Utils.BODY_FIELD_STATUS);
-            if (status.equals("OK")) {
-                guestEmail = responseBody.getString(Utils.BODY_FIELD_GUEST_EMAIL);
-                guestPhoneNumber = responseBody.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER);
-            }
-
-            request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
-            if (request == null) {
-                Log.d("LoginThread.run()", "Error creating request");
-                throw new RuntimeException();
-            }
-            Utils.clientToServer(outputStream, request.toString());
-            inputStream.close();
-            outputStream.close();
-            requestSocket.close();
-
-        } catch (IOException | JSONException e) {
-            Log.d("LoginThread.run()", "Error:\n" + e);
-            throw new RuntimeException(e);
         }
 
         Message msg = new Message();
