@@ -8,7 +8,6 @@ import android.util.Log;
 import com.example.lapis.Utils.Requests;
 import com.example.lapis.Utils.Utils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -18,12 +17,14 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class NewRatingThread implements Runnable {
-    Handler handler;
-    JSONObject booking;
-    double rating;
+    final Handler handler;
+    final String guestEmail;
+    final JSONObject booking;
+    final double rating;
 
-    public NewRatingThread(Handler handler, JSONObject booking, double rating) {
+    public NewRatingThread(Handler handler, String guestEmail, JSONObject booking, double rating) {
         this.handler = handler;
+        this.guestEmail = guestEmail;
         this.booking = booking;
         this.rating = rating;
     }
@@ -39,7 +40,7 @@ public class NewRatingThread implements Runnable {
             JSONObject requestBody = new JSONObject();
             try {
                 // Create and send request
-                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, "guest@example.com"); // TODO: Get from login
+                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.guestEmail);
                 requestBody.put(Utils.BODY_FIELD_RENTAL_ID, this.booking.get(Utils.BODY_FIELD_RENTAL_ID));
                 requestBody.put(Utils.BODY_FIELD_BOOKING_ID, this.booking.get(Utils.BODY_FIELD_BOOKING_ID));
                 requestBody.put(Utils.BODY_FIELD_RATING, rating);

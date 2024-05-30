@@ -1,7 +1,9 @@
 package com.example.lapis.UserPage;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -72,11 +74,21 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_page);
 
+        // Display user information
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        TextView guestEmailText = findViewById(R.id.user_email);
+        String guestEmail = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_EMAIL, getResources().getString(R.string.na));
+        guestEmailText.setText(guestEmail);
+        TextView guestPhoneNumberText = findViewById(R.id.user_phone_number);
+        String guestPhoneNumber = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, getResources().getString(R.string.na));
+        guestPhoneNumberText.setText(guestPhoneNumber);
+
         relativeLayout = findViewById(R.id.relative_user_page);
 
         // Load page and fetch bookings with no ratings
         viewModel = new ViewModelProvider(this).get(UserPageViewModel.class);
         viewModel.getPresenter().setHandler(handler);
+        viewModel.getPresenter().setGuestEmail(guestEmail);
         viewModel.getPresenter().onPageLoad();
 
         // Home button
@@ -137,8 +149,6 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         });
 
         Button confirmButton = pop_up.findViewById(R.id.popup_confirm_btn);
-        confirmButton.setOnClickListener(v -> {
-            viewModel.getPresenter().onConfirmRating(booking, rating);
-        });
+        confirmButton.setOnClickListener(v -> viewModel.getPresenter().onConfirmRating(booking, rating));
     }
 }

@@ -18,10 +18,12 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class UserPageThread implements Runnable {
-    Handler handler;
+    final Handler handler;
+    final String guestEmail;
 
-    public UserPageThread(Handler handler) {
+    public UserPageThread(Handler handler, String guestEmail) {
         this.handler = handler;
+        this.guestEmail = guestEmail;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class UserPageThread implements Runnable {
             JSONObject requestBody = new JSONObject();
             try {
                 // Create and send request
-                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, "guest@example.com"); // TODO: Get from login
+                requestBody.put(Utils.BODY_FIELD_GUEST_EMAIL, this.guestEmail);
             } catch (JSONException e) {
                 Log.d("UserPageThread.run()", "Error creating request body:\n" + e);
                 throw new RuntimeException(e);

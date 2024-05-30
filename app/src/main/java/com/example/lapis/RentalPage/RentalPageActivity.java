@@ -2,7 +2,9 @@ package com.example.lapis.RentalPage;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,7 +45,7 @@ import java.util.Objects;
 public class RentalPageActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     RentalPagePresenter presenter;
-    String guestEmail, rentalName, rentalLocation;
+    String rentalName, rentalLocation;
     int rentalId;
     double nightlyRate;
     final PopupWindow[] newBookingPopup = {null};
@@ -88,7 +90,6 @@ public class RentalPageActivity extends AppCompatActivity {
         JSONObject rentalInfo = new JSONObject();
         if (savedInstanceState == null) {
             Intent intent = getIntent();
-            guestEmail = intent.getStringExtra(Utils.BODY_FIELD_GUEST_EMAIL);
             try {
                 rentalInfo = new JSONObject(Objects.requireNonNull(intent.getStringExtra(Utils.INTENT_KEY_RENTAL_INFO)));
             } catch (JSONException e) {
@@ -101,7 +102,7 @@ public class RentalPageActivity extends AppCompatActivity {
         try {
             rentalId = rentalInfo.getInt(Utils.BODY_FIELD_RENTAL_ID);
             presenter.setRentalId(rentalId);
-          
+
             ImageView rentalImage = findViewById(R.id.rental_image);
             String imgUrl = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
             Glide.with(this).load(imgUrl).into(rentalImage);
@@ -201,6 +202,8 @@ public class RentalPageActivity extends AppCompatActivity {
         });
 
         Button confirmButton = pop_up.findViewById(R.id.popup_booking_confirm_btn);
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        String guestEmail = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_EMAIL, "");
         confirmButton.setOnClickListener(v -> presenter.onConfirmBooking(guestEmail, startDateString, endDateString));
     }
 

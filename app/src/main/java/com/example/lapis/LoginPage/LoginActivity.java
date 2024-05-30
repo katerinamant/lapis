@@ -1,6 +1,8 @@
 package com.example.lapis.LoginPage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,8 +30,13 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
         assert status != null;
         if (status.equals("OK")) {
             // Correct credentials
-            String guestEmail = message.getData().getString(Utils.BODY_FIELD_GUEST_EMAIL);
-            this.successfulLogIn(guestEmail);
+            SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(Utils.BODY_FIELD_GUEST_EMAIL, message.getData().getString(Utils.BODY_FIELD_GUEST_EMAIL));
+            editor.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, message.getData().getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER));
+            editor.apply();
+
+            this.successfulLogIn();
         } else {
             // Incorrect credentials, showing error
             this.showError("Login unsuccessful.", "Wrong credentials. Try again.");
@@ -82,9 +89,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
     // LoginView implementations
     @Override
-    public void successfulLogIn(String guestEmail) {
+    public void successfulLogIn() {
         Intent intent = new Intent(LoginActivity.this, HomePageActivity.class);
-        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 

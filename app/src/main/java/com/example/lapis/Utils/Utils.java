@@ -28,6 +28,7 @@ public class Utils {
     // User Authentication
     public static final String BODY_FIELD_GUEST_EMAIL = "guestEmail";
     public static final String BODY_FIELD_GUEST_PASSWORD = "guestPassword";
+    public static final String BODY_FIELD_GUEST_PHONE_NUMBER = "guestPhoneNumber";
 
     // Rental
     public static final String BODY_FIELD_RENTALS = "rentals";
@@ -64,6 +65,9 @@ public class Utils {
     // Connection
     public static final String SERVER_ADDRESS = "localhost";
     public static final int SERVER_PORT = 8080;
+
+    // Shared preferences
+    public static final String SHARED_PREFERENCES = "com.example.lapis";
 
     public static JSONObject createRequest(String header, String body) {
         JSONObject request = new JSONObject();

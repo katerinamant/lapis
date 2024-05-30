@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchPageActivity extends AppCompatActivity implements RecyclerViewActivity {
-    String guestEmail, locationFilter, datesFilter;
+    String locationFilter, datesFilter;
     int capacityFilter;
     double nightlyRateFilter, starsFilter;
 
@@ -73,7 +73,6 @@ public class SearchPageActivity extends AppCompatActivity implements RecyclerVie
     public void goToRentalPage(JSONObject rentalInfo) {
         Intent intent = new Intent(SearchPageActivity.this, RentalPageActivity.class);
         intent.putExtra(Utils.INTENT_KEY_RENTAL_INFO, rentalInfo.toString());
-        intent.putExtra(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
         startActivity(intent);
     }
 
@@ -86,7 +85,6 @@ public class SearchPageActivity extends AppCompatActivity implements RecyclerVie
         if (savedInstanceState == null) {
             Intent intent = getIntent();
             locationFilter = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
-            guestEmail = intent.getStringExtra(Utils.INTENT_KEY_DESTINATION);
         }
 
         // Instantiate view model

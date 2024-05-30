@@ -30,6 +30,7 @@ public class LoginThread implements Runnable {
     public void run() {
         Socket requestSocket = null;
         String status = "ERROR";
+        String guestEmail = "", guestPhoneNumber = "";
         try {
             requestSocket = new Socket(Utils.SERVER_ADDRESS, Utils.SERVER_PORT);
             DataOutputStream outputStream = new DataOutputStream(requestSocket.getOutputStream());
@@ -63,6 +64,10 @@ public class LoginThread implements Runnable {
             JSONObject responseJson = new JSONObject(responseString);
             JSONObject responseBody = new JSONObject(responseJson.getString(Utils.MESSAGE_BODY));
             status = responseBody.getString(Utils.BODY_FIELD_STATUS);
+            if (status.equals("OK")) {
+                guestEmail = responseBody.getString(Utils.BODY_FIELD_GUEST_EMAIL);
+                guestPhoneNumber = responseBody.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER);
+            }
 
             request = Utils.createRequest(Requests.CLOSE_CONNECTION.name(), "");
             if (request == null) {
@@ -83,7 +88,8 @@ public class LoginThread implements Runnable {
         Bundle bundle = new Bundle();
         bundle.putString(Utils.BODY_FIELD_STATUS, status);
         if (status.equals("OK")) {
-            bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, this.email);
+            bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
+            bundle.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, guestPhoneNumber);
         }
         msg.setData(bundle);
         this.handler.sendMessage(msg);
