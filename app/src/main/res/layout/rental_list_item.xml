@@ -7,24 +7,32 @@
     android:layout_height="wrap_content"
     android:background="@drawable/list_item_rounded_with_color">
 
-    <ImageView
-        android:id="@+id/rental_item_image"
-        android:layout_width="142dp"
-        android:layout_height="94dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rental_item_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:background="@drawable/shadow_rect"
-        android:contentDescription="@string/rental_image_desc"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/rental_item_image"
+            android:layout_width="142dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/rental_image_desc"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/rental_item_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="20dp"
         android:ellipsize="end"
         android:fontFamily="@font/inter_bold"
@@ -35,7 +43,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_card"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -54,7 +62,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_card"
         app:layout_constraintTop_toBottomOf="@+id/rental_item_name" />
 
     <TextView
@@ -89,7 +97,7 @@
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintEnd_toStartOf="@+id/rental_item_euro_symbol"
-        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_card"
         app:layout_constraintTop_toBottomOf="@+id/rental_item_stars" />
 
     <View
@@ -112,7 +120,7 @@
         android:text="@string/na"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@+id/rental_item_image"
+        app:layout_constraintStart_toEndOf="@+id/rental_item_card"
         app:layout_constraintTop_toBottomOf="@+id/rental_item_location" />
 
     <ImageView

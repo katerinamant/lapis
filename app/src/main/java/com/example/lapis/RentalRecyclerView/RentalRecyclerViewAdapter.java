@@ -58,7 +58,10 @@ public class RentalRecyclerViewAdapter extends RecyclerView.Adapter<RentalRecycl
         holder.stars.setText(String.valueOf(rentalStars));
         holder.numOfRatings.setText(String.valueOf(rentalNumOfRatings));
         holder.nightlyRate.setText(String.valueOf(rentalNightlyRate));
-        Glide.with((Context) activity).load(imgUrl).into(holder.rentalImage);
+        Glide.with((Context) activity)
+                .load(imgUrl)
+                .centerCrop()
+                .into(holder.rentalImage);
     }
 
 

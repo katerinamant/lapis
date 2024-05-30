@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.util.Pair;
 
 import com.bumptech.glide.Glide;
@@ -45,9 +46,10 @@ import java.util.Objects;
 public class RentalPageActivity extends AppCompatActivity {
     RelativeLayout relativeLayout;
     RentalPagePresenter presenter;
-    String rentalName, rentalLocation;
+    String imgUrl, rentalName, rentalLocation;
     int rentalId;
     double nightlyRate;
+    final PopupWindow[] largeImagePopup = {null};
     final PopupWindow[] newBookingPopup = {null};
     private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
         if (message.getData().containsKey(Utils.BODY_FIELD_AVAILABILITY)) {
@@ -104,8 +106,11 @@ public class RentalPageActivity extends AppCompatActivity {
             presenter.setRentalId(rentalId);
 
             ImageView rentalImage = findViewById(R.id.rental_image);
-            String imgUrl = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
-            Glide.with(this).load(imgUrl).into(rentalImage);
+            imgUrl = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_IMAGE_URL);
+            Glide.with(this).
+                    load(imgUrl).
+                    centerCrop().
+                    into(rentalImage);
 
             TextView rentalNameText = findViewById(R.id.rental_name);
             rentalName = rentalInfo.getString(Utils.BODY_FIELD_RENTAL_NAME);
@@ -136,8 +141,39 @@ public class RentalPageActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        // Show enlarged image
+        CardView imageCardView = findViewById(R.id.rental_image_card);
+        imageCardView.setOnClickListener(view -> showEnlargedImage());
+
         MaterialButton checkAvailabilityButton = findViewById(R.id.btn_check_availability);
         checkAvailabilityButton.setOnClickListener(view -> datePickerDialog());
+    }
+
+    private void showEnlargedImage() {
+        // Inflate popup layout
+        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+        View pop_up = layoutInflater.inflate(R.layout.popup_large_image, null);
+
+        // Create and show large image popup
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.MATCH_PARENT;
+        // The array is used because
+        // the variable needs to be final
+        // for the onClickListener
+        largeImagePopup[0] = new PopupWindow(pop_up, width, height, true);
+        largeImagePopup[0].showAtLocation(relativeLayout, Gravity.CENTER, 0, 0);
+
+        // Fill popup ImageView
+        ImageView largeImage = pop_up.findViewById(R.id.popup_large_image);
+        Glide.with(this).
+                load(imgUrl).
+                centerCrop().
+                into(largeImage);
+
+        pop_up.setOnClickListener(v -> {
+            largeImagePopup[0].dismiss();
+            largeImagePopup[0] = null;
+        });
     }
 
     private void datePickerDialog() {

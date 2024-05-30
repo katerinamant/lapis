@@ -35,29 +35,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rental_name" />
 
-    <ImageView
-        android:id="@+id/rental_image"
-        android:layout_width="304dp"
-        android:layout_height="177dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/rental_image_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:background="@drawable/shadow_rect"
-        android:contentDescription="@string/rental_image_desc"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4"
-        app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+        app:layout_constraintTop_toBottomOf="@+id/divider4">
+
+        <ImageView
+            android:id="@+id/rental_image"
+            android:layout_width="304dp"
+            android:layout_height="177dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/rental_image_desc"
+            app:srcCompat="@drawable/lapis_logo_blue_cropped" />
+    </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="409dp"
         android:layout_height="2dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:background="@color/royal_blue"
         android:backgroundTint="@color/royal_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rental_image" />
+        app:layout_constraintTop_toBottomOf="@+id/rental_image_card" />
 
     <TextView
         android:id="@+id/rental_name"
@@ -163,10 +171,12 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_check_availability"
         android:layout_width="227dp"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/inter_regular"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/check_availability"
         android:textAlignment="center"
         android:textAllCaps="false"
