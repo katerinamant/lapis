@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity implements LoginView {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            email = emailField.getText().toString();
-            password = passwordField.getText().toString();
+            email = emailField.getText().toString().trim();
+            password = passwordField.getText().toString().trim();
             if (!email.isEmpty() && !password.isEmpty()) {
                 enterButton.setAlpha(1.0f);
                 enterButtonIsEnabled = true;
