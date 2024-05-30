@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class CheckAvailabilityThread implements Runnable {
-    Handler handler;
-    int rentalId;
-    String startDate, endDate;
+    final Handler handler;
+    final int rentalId;
+    final String startDate, endDate;
 
     public CheckAvailabilityThread(Handler handler, int rentalId, String startDate, String endDate) {
         this.handler = handler;

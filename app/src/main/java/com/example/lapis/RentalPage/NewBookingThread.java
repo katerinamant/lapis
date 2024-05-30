@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class NewBookingThread implements Runnable {
-    Handler handler;
-    int rentalId;
-    String guestEmail, startDate, endDate;
+    final Handler handler;
+    final int rentalId;
+    final String guestEmail, startDate, endDate;
 
     public NewBookingThread(Handler handler, int rentalId, String guestEmail, String startDate, String endDate) {
         this.handler = handler;

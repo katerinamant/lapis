@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class HomePageThread implements Runnable {
-    Handler handler;
+    final Handler handler;
 
     public HomePageThread(Handler handler) {
         this.handler = handler;

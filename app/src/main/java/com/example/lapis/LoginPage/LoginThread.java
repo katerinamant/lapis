@@ -17,8 +17,8 @@ import java.io.IOException;
 import java.net.Socket;
 
 public class LoginThread implements Runnable {
-    Handler handler;
-    String email, password;
+    final Handler handler;
+    final String email, password;
 
     public LoginThread(Handler handler, String email, String password) {
         this.handler = handler;

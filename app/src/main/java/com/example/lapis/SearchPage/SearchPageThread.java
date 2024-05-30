@@ -3,24 +3,16 @@ package com.example.lapis.SearchPage;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.example.lapis.Utils.Requests;
 import com.example.lapis.Utils.Utils;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.Socket;
-import java.net.UnknownHostException;
-
 public class SearchPageThread implements Runnable {
-    Handler handler;
-    JSONObject searchFilters;
+    final Handler handler;
+    final JSONObject searchFilters;
 
     public SearchPageThread(Handler handler, JSONObject searchFilters) {
         this.handler = handler;
