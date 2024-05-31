@@ -77,6 +77,9 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
 
         // Display user information
         SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        TextView welcomeText = findViewById(R.id.user_title);
+        String guestFirstName = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_FIRST_NAME, getResources().getString(R.string.na));
+        welcomeText.setText(String.format("Hello, %s!", guestFirstName));
         TextView guestEmailText = findViewById(R.id.user_email);
         String guestEmail = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_EMAIL, getResources().getString(R.string.na));
         guestEmailText.setText(guestEmail);

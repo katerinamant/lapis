@@ -39,7 +39,7 @@ public class LoginThread implements Runnable {
         }
 
         String status;
-        String guestEmail = "", guestPhoneNumber = "";
+        String guestEmail = "", guestPhoneNumber = "", guestFirstName = "";
         String responseString = Utils.sendRequestToServer(request);
         if (responseString == null) {
             Log.d("LoginThread.run()", "Error receiving responseString.");
@@ -53,6 +53,7 @@ public class LoginThread implements Runnable {
                 if (status.equals("OK")) {
                     guestEmail = responseBody.getString(Utils.BODY_FIELD_GUEST_EMAIL);
                     guestPhoneNumber = responseBody.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER);
+                    guestFirstName = responseBody.getString(Utils.BODY_FIELD_GUEST_FIRST_NAME);
                 }
             } catch (JSONException e) {
                 Log.d("LoginThread.run()", "Error handling response.");
@@ -66,6 +67,7 @@ public class LoginThread implements Runnable {
         if (status.equals("OK")) {
             bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, guestEmail);
             bundle.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, guestPhoneNumber);
+            bundle.putString(Utils.BODY_FIELD_GUEST_FIRST_NAME, guestFirstName);
         }
         msg.setData(bundle);
         this.handler.sendMessage(msg);

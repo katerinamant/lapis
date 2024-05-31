@@ -61,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Utils.BODY_FIELD_GUEST_EMAIL, message.getData().getString(Utils.BODY_FIELD_GUEST_EMAIL));
         editor.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, message.getData().getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER));
+        editor.putString(Utils.BODY_FIELD_GUEST_FIRST_NAME, message.getData().getString(Utils.BODY_FIELD_GUEST_FIRST_NAME));
         editor.apply();
 
         this.successfulSignUp();

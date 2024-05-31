@@ -65,6 +65,7 @@ public class SignUpThread implements Runnable {
             bundle.putString(Utils.BODY_FIELD_STATUS, responseBody.getString(Utils.BODY_FIELD_STATUS));
             bundle.putString(Utils.BODY_FIELD_GUEST_EMAIL, responseBody.getString(Utils.BODY_FIELD_GUEST_EMAIL));
             bundle.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, responseBody.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER));
+            bundle.putString(Utils.BODY_FIELD_GUEST_FIRST_NAME, responseBody.getString(Utils.BODY_FIELD_GUEST_FIRST_NAME));
             msg.setData(bundle);
             this.handler.sendMessage(msg);
 
