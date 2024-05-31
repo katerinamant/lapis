@@ -10,11 +10,11 @@
     <RelativeLayout
         android:id="@+id/relative_user_page"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toTopOf="parent"
+        android:layout_height="839dp"
+        app:layout_constraintBottom_toTopOf="@id/copyright_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider5"
@@ -136,10 +136,25 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/copyright_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rate_your_stays_title" />
+
+    <TextView
+        android:id="@+id/copyright_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/copyright"
+        android:textColor="@color/hint"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColorLink="#03A9F4"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

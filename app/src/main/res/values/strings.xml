@@ -50,6 +50,9 @@
     <string name="price">Price</string>
     <string name="price_per_night">€ per night</string>
 
+    <!-- Search Page Footnote -->
+    <string name="copyright">© 2024 Lapis. Icons by <a href="https://icons8.com/">Icons8</a></string>
+
     <!-- Rental Page and Rental List Item -->
     <string name="rental_image_desc">Rental image</string>
     <string name="rental_name">Rental name</string>

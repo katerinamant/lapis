@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -98,6 +99,10 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
             Intent intent = new Intent(UserPageActivity.this, HomePageActivity.class);
             startActivity(intent);
         });
+
+        // Copyright footnote
+        TextView copyrightText = findViewById(R.id.copyright_text);
+        copyrightText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void onSuccessfulRating() {
