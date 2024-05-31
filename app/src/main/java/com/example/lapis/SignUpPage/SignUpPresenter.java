@@ -20,11 +20,11 @@ public class SignUpPresenter {
 
         if (password.length() < 8) {
             view.showError("Invalid password.",
-                    "Please use at least 8 characters, " +
-                            "at least one number, " +
-                            "at least one upper case letter, " +
-                            "at least one lower case letter, and " +
-                            "at least one special character.");
+                    "Please use at least 8 characters,\n" +
+                            "at least one number,\n" +
+                            "at least one upper case letter,\n" +
+                            "at least one lower case letter, and\n" +
+                            "at least one special character (!@#$%^*(),.\\/;).");
             return;
         }
 
