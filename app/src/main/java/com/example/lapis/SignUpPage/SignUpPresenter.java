@@ -1,10 +1,14 @@
 package com.example.lapis.SignUpPage;
 
+import android.os.Handler;
+
 public class SignUpPresenter {
     private final SignUpView view;
+    private final Handler handler;
 
-    public SignUpPresenter(SignUpView view) {
+    public SignUpPresenter(SignUpView view, Handler handler) {
         this.view = view;
+        this.handler = handler;
     }
 
     void onSignUp(boolean signUpButtonIsEnabled, String email, String password, String firstName, String lastName, String phoneNumber) {
@@ -15,7 +19,12 @@ public class SignUpPresenter {
         }
 
         if (password.length() < 8) {
-            view.showError("Invalid password.", "Please use at least 8 digits.");
+            view.showError("Invalid password.",
+                    "Please use at least 8 characters, " +
+                            "at least one number, " +
+                            "at least one upper case letter, " +
+                            "at least one lower case letter, and " +
+                            "at least one special character.");
             return;
         }
 
@@ -24,7 +33,7 @@ public class SignUpPresenter {
             return;
         }
 
-        // TODO: Send new user to server
-        view.successfulSignUp();
+        SignUpThread signUpThread = new SignUpThread(this.handler, email, password, firstName, lastName, phoneNumber);
+        new Thread(signUpThread).start();
     }
 }

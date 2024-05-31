@@ -1,6 +1,7 @@
 package com.example.lapis.Utils;
 
 public enum Requests {
+    SIGN_UP,
     CHECK_CREDENTIALS,
     GET_RENTALS,
     CHECK_AVAILABILITY,

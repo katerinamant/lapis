@@ -1,7 +1,11 @@
 package com.example.lapis.SignUpPage;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
@@ -13,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.lapis.HomePage.HomePageActivity;
 import com.example.lapis.R;
+import com.example.lapis.Utils.Utils;
+
+import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private EditText emailField, passwordField, firstNameField, lastNameField, phoneNumberField;
@@ -20,12 +27,52 @@ public class SignUpActivity extends AppCompatActivity implements SignUpView {
     private boolean signUpButtonIsEnabled;
     private String email, password, firstName, lastName, phoneNumber;
 
+    private final Handler handler = new Handler(Looper.getMainLooper(), message -> {
+        if (message.getData().containsKey(Utils.BODY_FIELD_ERROR)) {
+            // Invalid input
+            String errorCause = message.getData().getString(Utils.BODY_FIELD_ERROR);
+            switch (Objects.requireNonNull(errorCause)) {
+                case Utils.BODY_FIELD_GUEST_EMAIL:
+                    SignUpActivity.this.showError("Email in use or invalid email!", "Please check the email provided.");
+                    break;
+
+                case Utils.BODY_FIELD_GUEST_PASSWORD:
+                    SignUpActivity.this.showError("Invalid password.",
+                            "Please use at least 8 characters, " +
+                                    "at least one number, " +
+                                    "at least one upper case letter, " +
+                                    "at least one lower case letter, and " +
+                                    "at least one special character.");
+                    break;
+
+                case Utils.BODY_FIELD_GUEST_PHONE_NUMBER:
+                    SignUpActivity.this.showError("Invalid phone number!", "Please check the phone number provided.");
+                    break;
+
+                default:
+                    SignUpActivity.this.showError("Invalid input!", "Please check the information provided.");
+                    break;
+            }
+            return false;
+        }
+
+        // Correct credentials
+        SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Utils.BODY_FIELD_GUEST_EMAIL, message.getData().getString(Utils.BODY_FIELD_GUEST_EMAIL));
+        editor.putString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, message.getData().getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER));
+        editor.apply();
+
+        this.successfulSignUp();
+        return true;
+    });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        final SignUpPresenter presenter = new SignUpPresenter(this);
+        final SignUpPresenter presenter = new SignUpPresenter(this, handler);
 
         emailField = findViewById(R.id.signup_edit_text_email);
         passwordField = findViewById(R.id.signup_edit_text_password);

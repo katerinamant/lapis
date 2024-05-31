@@ -24,10 +24,13 @@ public class Utils {
     public static final String MESSAGE_BODY = "body";
     public static final String MESSAGE_TYPE_REQUEST = "request";
     public static final String BODY_FIELD_STATUS = "status";
+    public static final String BODY_FIELD_ERROR = "error";
 
-    // User Authentication
+    // User Sign-Up + Authentication
     public static final String BODY_FIELD_GUEST_EMAIL = "guestEmail";
     public static final String BODY_FIELD_GUEST_PASSWORD = "guestPassword";
+    public static final String BODY_FIELD_GUEST_FIRST_NAME = "guestFirstName";
+    public static final String BODY_FIELD_GUEST_LAST_NAME = "guestLastName";
     public static final String BODY_FIELD_GUEST_PHONE_NUMBER = "guestPhoneNumber";
 
     // Rental
