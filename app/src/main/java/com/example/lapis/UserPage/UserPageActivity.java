@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.lapis.HomePage.HomePageActivity;
+import com.example.lapis.LandingPage.LandingPageActivity;
 import com.example.lapis.R;
 import com.example.lapis.Utils.Utils;
 
@@ -76,15 +77,15 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         setContentView(R.layout.activity_user_page);
 
         // Display user information
-        SharedPreferences sharedPreferences = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        final SharedPreferences[] sharedPreferences = {this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE)};
         TextView welcomeText = findViewById(R.id.user_title);
-        String guestFirstName = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_FIRST_NAME, getResources().getString(R.string.na));
+        String guestFirstName = sharedPreferences[0].getString(Utils.BODY_FIELD_GUEST_FIRST_NAME, getResources().getString(R.string.na));
         welcomeText.setText(String.format("Hello, %s!", guestFirstName));
         TextView guestEmailText = findViewById(R.id.user_email);
-        String guestEmail = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_EMAIL, getResources().getString(R.string.na));
+        String guestEmail = sharedPreferences[0].getString(Utils.BODY_FIELD_GUEST_EMAIL, getResources().getString(R.string.na));
         guestEmailText.setText(guestEmail);
         TextView guestPhoneNumberText = findViewById(R.id.user_phone_number);
-        String guestPhoneNumber = sharedPreferences.getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, getResources().getString(R.string.na));
+        String guestPhoneNumber = sharedPreferences[0].getString(Utils.BODY_FIELD_GUEST_PHONE_NUMBER, getResources().getString(R.string.na));
         guestPhoneNumberText.setText(guestPhoneNumber);
 
         relativeLayout = findViewById(R.id.relative_user_page);
@@ -100,6 +101,20 @@ public class UserPageActivity extends AppCompatActivity implements RatingsRecycl
         headerLogo.setOnClickListener(view -> {
             // Go to HomePage
             Intent intent = new Intent(UserPageActivity.this, HomePageActivity.class);
+            startActivity(intent);
+        });
+
+        // Sign Out button
+        ImageView signOutButton = findViewById(R.id.header_sign_out);
+        signOutButton.setOnClickListener(view -> {
+            // Clear user information
+            sharedPreferences[0] = this.getSharedPreferences(Utils.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences[0].edit();
+            editor.clear();
+            editor.apply();
+
+            // Go to LandingPage
+            Intent intent = new Intent(UserPageActivity.this, LandingPageActivity.class);
             startActivity(intent);
         });
 

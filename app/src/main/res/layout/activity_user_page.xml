@@ -9,12 +9,13 @@
 
     <RelativeLayout
         android:id="@+id/relative_user_page"
-        android:layout_width="match_parent"
-        android:layout_height="839dp"
+        android:layout_width="415dp"
+        android:layout_height="685dp"
         app:layout_constraintBottom_toTopOf="@id/copyright_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+    </RelativeLayout>
 
     <View
         android:id="@+id/divider5"
@@ -156,5 +157,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColorLink="#03A9F4"/>
+
+    <ImageView
+        android:id="@+id/header_sign_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/divider5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.915"
+        app:layout_constraintStart_toEndOf="@+id/userpage_header_logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sign_out_icon"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="14dp"
+        android:contentDescription="@string/sing_out_desc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

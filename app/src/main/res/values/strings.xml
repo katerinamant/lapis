@@ -36,6 +36,7 @@
     <string name="user_title">Hi, guest!</string>
     <string name="edit">Edit</string>
     <string name="rate_your_stays">Rate your stays</string>
+    <string name="sing_out_desc">Sign Out Button</string>
 
     <!-- Search Page -->
     <string name="destination">Destination</string>
